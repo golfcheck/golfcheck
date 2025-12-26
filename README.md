@@ -1,16 +1,13 @@
-## Hi there 👋
+ Golfcheck
 
-<!--
-**golfcheck/golfcheck** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+ Smart golf bag identification, security and digital experience ecosystem
 
-Here are some ideas to get you started:
+ Golfcheck is an intelligent ecosystem design to identify, secure and connect golf bags in real time.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+ Using NFC technology,each golf bag becomes a smart object that enables:
+ - Instant identification
+ - Anti-loss and anti-theft verification
+ - Secure access to a digital profile
+ - Real-time interaction with the bag
+
+Golfcheck connects the physical golf bag to a digital platform, creating trust, security and a premium user experience.
