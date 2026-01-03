@@ -1,1 +1,1993 @@
- 
+<!DOCTYPE html>
+<!-- saved from url=(0186)file:///Users/abdou/Library/Containers/com.apple.mail/Data/Library/Mail%20Downloads/85BFC253-CAFF-42A0-AAD4-4A609BB2504D/GolfCheck_PARCOURS_prototype5_V20_FULL_realtimeRoom_iPhone12.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GolfCheck — Prototype V3</title>
+<style>
+  :root{
+    --bg:#070a09;
+    --bg2:#0a1110;
+    --card:rgba(255,255,255,.06);
+    --card2:rgba(255,255,255,.085);
+    --stroke:rgba(255,255,255,.10);
+    --text:#f2f5f4;
+    --muted:rgba(242,245,244,.68);
+    --muted2:rgba(242,245,244,.48);
+    --green:#1fda79;
+    --green2:#0bbf6b;
+    --amber:#ffb74a;
+    --red:#ff6b6b;
+    --shadow:0 26px 70px rgba(0,0,0,.55);
+    --r:22px;
+    --r2:16px;
+    --safeTop: env(safe-area-inset-top, 0px);
+    --safeBottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Arial;
+    background: radial-gradient(1200px 520px at 50% -160px, rgba(31,218,121,.20), transparent 55%),
+                radial-gradient(1000px 520px at 50% 120%, rgba(31,218,121,.10), transparent 60%),
+                linear-gradient(180deg, var(--bg), var(--bg2));
+    color:var(--text);
+    display:flex; align-items:center; justify-content:center;
+    padding:16px;
+  }
+
+  .phone{
+    width:min(420px, 100%);
+    height:min(860px, 100vh - 32px);
+    border-radius: 40px;
+    background: linear-gradient(180deg, rgba(31,218,121,.14), rgba(255,255,255,.02));
+    padding: 16px;
+    box-shadow: 0 40px 120px rgba(0,0,0,.65);
+    position:relative;
+    overflow:hidden;
+  }
+  .screen{
+    width:100%; height:100%;
+    border-radius: 30px;
+    background:
+      radial-gradient(900px 420px at 50% -220px, rgba(31,218,121,.24), transparent 60%),
+      radial-gradient(900px 520px at 50% 120%, rgba(31,218,121,.10), transparent 62%),
+      linear-gradient(180deg, #050707, #070b0a);
+    border: 1px solid rgba(255,255,255,.08);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .status{
+    height: calc(24px + var(--safeTop));
+    padding: calc(10px + var(--safeTop)) 16px 8px 16px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:12px; color:rgba(242,245,244,.85);
+    letter-spacing:.3px;
+  }
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.09);
+    backdrop-filter: blur(14px);
+  }
+  .dot{width:8px;height:8px;border-radius:50%; background:var(--green); box-shadow:0 0 0 6px rgba(31,218,121,.12)}
+  .righticons{display:flex; gap:8px; align-items:center; opacity:.92}
+  .battery{width:24px;height:12px;border:1px solid rgba(255,255,255,.6); border-radius:3px; position:relative}
+  .battery:after{content:""; position:absolute; right:-3px; top:3px; width:2px; height:6px; background:rgba(255,255,255,.6); border-radius:1px}
+  .battery .lvl{position:absolute; left:1px; top:1px; bottom:1px; width:70%; background:rgba(31,218,121,.85); border-radius:2px}
+
+  .appHeader{padding: 6px 18px 10px 18px}
+  .brand{display:flex; align-items:center; gap:12px;}
+  .mark{
+    width:42px;height:42px;border-radius:14px;
+    background: radial-gradient(circle at 30% 30%, rgba(31,218,121,.35), rgba(255,255,255,.03) 65%);
+    border: 1px solid rgba(255,255,255,.09);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 16px 50px rgba(0,0,0,.45);
+  }
+  .check{
+    width:18px;height:10px;
+    border-left:3px solid var(--green);
+    border-bottom:3px solid var(--green);
+    transform: rotate(-45deg);
+    filter: drop-shadow(0 0 10px rgba(31,218,121,.35));
+  }
+  .brand h1{margin:0; font-size:28px; line-height:1.1; letter-spacing:-.5px;}
+  .brand h1 span{color:var(--green)}
+  .sub{margin:4px 0 0 0; color:var(--muted); font-size:13px}
+
+  .content{
+    padding: 10px 18px calc(132px + var(--safeBottom)) 18px;
+    height: calc(100% - 60px);
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: auto;
+  }
+  .content::-webkit-scrollbar{width:0;height:0}
+
+  .grid3{display:grid; grid-template-columns: repeat(3,1fr); gap:12px}
+  .tile{
+    background: rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius: 18px;
+    padding: 14px 12px;
+    text-align:center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    backdrop-filter: blur(14px);
+    user-select:none;
+    cursor:pointer;
+  }
+  .tile .ico{
+    width:38px;height:38px;border-radius: 14px;
+    margin:0 auto 10px auto;
+    background: radial-gradient(circle at 30% 30%, rgba(31,218,121,.24), rgba(255,255,255,.03) 70%);
+    border:1px solid rgba(255,255,255,.09);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tile .lbl{font-size:12px; color:rgba(242,245,244,.9)}
+  .tile:hover{transform: translateY(-1px)}
+  .tile:active{transform: translateY(1px) scale(.99)}
+
+  .heroBag{
+    margin:14px 0 16px 0;
+    background: linear-gradient(180deg, rgba(31,218,121,.09), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius: 26px;
+    padding: 16px;
+    display:flex; align-items:center; justify-content:space-between;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    position:relative;
+  }
+  .heroBag:before{
+    content:"";
+    position:absolute; inset:-40px -120px auto -120px; height:220px;
+    background: radial-gradient(circle at 50% 50%, rgba(31,218,121,.18), transparent 65%);
+  }
+  .heroLeft{position:relative; z-index:2}
+  .tag{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 8px 12px;
+    border-radius:999px;
+    background: rgba(31,218,121,.08);
+    border:1px solid rgba(31,218,121,.20);
+    color: rgba(242,245,244,.92);
+    font-size:12px;
+  }
+  .tag .mini{width:8px;height:8px;border-radius:50%; background: var(--green)}
+  .heroTitle{margin:10px 0 2px 0; font-size:16px; letter-spacing:-.2px}
+  .heroDesc{margin:0; color:var(--muted); font-size:12px}
+  .heroRight{display:none;
+    
+    width:86px; height:86px;
+    border-radius: 24px;
+    background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.08), rgba(255,255,255,.02) 70%);
+    border: 1px solid rgba(255,255,255,.08);
+    position:relative; z-index:2;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .bagIcon{
+    width:44px;height:54px; border-radius: 12px 12px 16px 16px;
+    border:2px solid rgba(242,245,244,.35);
+    position:relative;
+  }
+  .bagIcon:before{
+    content:""; position:absolute; left:10px; top:-12px;
+    width:24px;height:18px; border:2px solid rgba(242,245,244,.35);
+    border-bottom:none; border-radius: 12px 12px 0 0;
+  }
+  .bagIcon:after{
+    content:""; position:absolute; left:8px; top:16px;
+    width:28px;height:10px; border:2px solid rgba(242,245,244,.26);
+    border-left:none;border-right:none;
+  }
+
+  .sectionTitle{
+    margin:18px 0 10px 0;
+    font-size:12px; letter-spacing:1.2px;
+    color: rgba(242,245,244,.62);
+    text-transform:uppercase;
+  }
+
+  .card{
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 22px;
+    padding: 14px;
+    box-shadow: 0 26px 70px rgba(0,0,0,.45);
+    backdrop-filter: blur(14px);
+  }
+
+  .row{display:flex; gap:12px; align-items:center; justify-content:space-between}
+  .btn{
+    width:100%;
+    border:none;
+    padding: 14px 16px;
+    border-radius: 16px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:14px;
+    color:#06110c;
+    background: linear-gradient(180deg, rgba(31,218,121,.95), rgba(11,191,107,.95));
+    box-shadow: 0 20px 60px rgba(31,218,121,.18);
+  }
+  .btn.secondary{
+    background: rgba(255,255,255,.06);
+    color: rgba(242,245,244,.92);
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:none;
+    font-weight:650;
+  }
+  .btn.ghost{
+    background: transparent;
+    border:1px solid rgba(255,255,255,.14);
+    color: rgba(242,245,244,.88);
+  }
+  .btn:active{transform: translateY(1px)}
+  .btn.small{padding:10px 12px; border-radius:14px; font-size:13px}
+  .btnRow{display:flex; gap:10px}
+
+  .nav{
+    position:absolute;
+    left:16px; right:16px; bottom: calc(12px + var(--safeBottom));
+    background: rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius: 22px;
+    padding: 10px 10px;
+    display:flex; justify-content:space-between; gap:8px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  }
+  .nav .tab{
+    flex:1;
+    border-radius: 16px;
+    padding: 10px 10px;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    color: rgba(242,245,244,.7);
+    font-size:11px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .nav .tab .ticon{
+    width:30px;height:30px;border-radius: 12px;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .nav .tab.active{color: rgba(242,245,244,.95)}
+  .nav .tab.active .ticon{
+    background: rgba(31,218,121,.10);
+    border:1px solid rgba(31,218,121,.18);
+  }
+
+  .view{display:none}
+  .view.active{display:block}
+
+  .scanPane{display:grid; gap:12px;}
+  .scanBox{
+    height: 260px;
+    border-radius: 26px;
+    border:1px solid rgba(255,255,255,.10);
+    background: radial-gradient(circle at 50% 40%, rgba(31,218,121,.14), rgba(255,255,255,.02) 70%);
+    position:relative;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+  }
+  .scanBox .hint{
+    position:absolute; left:18px; top:16px;
+    display:flex; align-items:center; gap:8px;
+    color: rgba(242,245,244,.86);
+    font-size:12px;
+  }
+  .scanBox .hint .mini{width:9px;height:9px;border-radius:50%; background: var(--green)}
+  .scanBox .frame{
+    position:absolute; inset: 58px 22px 34px 22px;
+    border-radius: 22px;
+    border:1px dashed rgba(242,245,244,.22);
+    background: rgba(0,0,0,.18);
+  }
+  .scanBox .beam{
+    position:absolute; left:0; right:0;
+    height:3px;
+    top: 86px;
+    background: linear-gradient(90deg, transparent, rgba(31,218,121,.95), transparent);
+    filter: drop-shadow(0 0 18px rgba(31,218,121,.65));
+    opacity:0;
+  }
+  .scanBox.scanning .beam{opacity:1; animation: sweep 1.4s linear infinite;}
+  @keyframes sweep{0%{transform: translateY(0)}100%{transform: translateY(132px)}}
+  .scanBox .spark{
+    position:absolute; left:50%; top:50%;
+    width:10px;height:10px;border-radius:50%;
+    background: rgba(31,218,121,.95);
+    transform: translate(-50%,-50%);
+    opacity:.0;
+    box-shadow: 0 0 0 14px rgba(31,218,121,.08), 0 0 40px rgba(31,218,121,.35);
+  }
+  .scanBox.scanning .spark{opacity:1; animation: pulse 1.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(.9); opacity:.7}50%{transform:translate(-50%,-50%) scale(1.2); opacity:1}}
+
+  .kpis{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+  .kpi{
+    border-radius: 20px;
+    padding: 14px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.05);
+  }
+  .kpi .lab{font-size:12px; color:rgba(242,245,244,.65)}
+  .kpi .val{margin-top:6px; font-size:18px; font-weight:800; letter-spacing:-.2px}
+  .kpi .sub{margin-top:4px; color:rgba(242,245,244,.55); font-size:12px}
+  .bar{
+    margin-top:10px;
+    height:10px; border-radius:999px;
+    background: rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+    overflow:hidden;
+  }
+  .bar > i{
+    display:block; height:100%;
+    width:40%;
+    background: linear-gradient(90deg, rgba(31,218,121,.95), rgba(11,191,107,.95));
+    border-radius:999px;
+    box-shadow: 0 0 18px rgba(31,218,121,.25);
+  }
+
+  .list{margin-top:12px; display:grid; gap:10px;}
+  .item{
+    display:flex; gap:10px; align-items:center; justify-content:space-between;
+    padding: 12px 12px;
+    border-radius: 18px;
+    border:1px solid rgba(255,255,255,.09);
+    background: rgba(255,255,255,.045);
+  }
+  .item .left{display:flex; gap:10px; align-items:center}
+  .badge{
+    width:28px;height:28px;border-radius: 12px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(0,0,0,.18);
+  }
+  .badge.ok{background: rgba(31,218,121,.10); border-color: rgba(31,218,121,.20)}
+  .badge.miss{background: rgba(255,107,107,.10); border-color: rgba(255,107,107,.20)}
+  .tick{
+    width:12px;height:7px;
+    border-left:3px solid var(--green);
+    border-bottom:3px solid var(--green);
+    transform: rotate(-45deg);
+  }
+  .x{width:14px;height:14px; position:relative;}
+  .x:before,.x:after{
+    content:""; position:absolute; left:50%; top:50%;
+    width:14px; height:2px; background: var(--red);
+    transform-origin:center;
+  }
+  .x:before{transform: translate(-50%,-50%) rotate(45deg)}
+  .x:after{transform: translate(-50%,-50%) rotate(-45deg)}
+  .item .name{font-weight:800; letter-spacing:-.2px}
+  .item .meta{font-size:12px; color: rgba(242,245,244,.55); margin-top:2px}
+  .item .right{display:flex; gap:8px; align-items:center}
+  .chip{
+    padding: 8px 10px;
+    border-radius: 999px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.05);
+    color: rgba(242,245,244,.85);
+    font-size:12px;
+    user-select:none;
+    cursor:pointer;
+  }
+  .chip.on{background: rgba(31,218,121,.14); border-color: rgba(31,218,121,.22); color: rgba(242,245,244,.96)}
+  .chip.off{background: rgba(255,255,255,.035); border-color: rgba(255,255,255,.08); color: rgba(242,245,244,.68)}
+
+  .seg{
+    display:flex; gap:10px;
+    background: rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    padding: 6px;
+    margin-bottom: 10px;
+  }
+  .seg button{
+    flex:1;
+    border:none;
+    border-radius: 14px;
+    padding: 10px 10px;
+    cursor:pointer;
+    background: transparent;
+    color: rgba(242,245,244,.75);
+    font-weight:800;
+  }
+  .seg button.active{
+    background: rgba(31,218,121,.14);
+    border:1px solid rgba(31,218,121,.20);
+    color: rgba(242,245,244,.96);
+  }
+
+  .progressRow{
+    display:flex; align-items:center; gap:12px; justify-content:space-between;
+    margin: 12px 0 10px 0;
+  }
+  .bigCheck{
+    width:66px;height:66px;border-radius: 22px;
+    background: radial-gradient(circle at 30% 25%, rgba(31,218,121,.30), rgba(255,255,255,.03) 70%);
+    border:1px solid rgba(31,218,121,.22);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 26px 70px rgba(31,218,121,.12);
+  }
+  .bigCheck .tick{width:18px;height:11px}
+  .count{font-size:26px; font-weight:900; letter-spacing:-.6px;}
+  .note{color: rgba(242,245,244,.62); font-size:12px; margin:0}
+  .muteline{height:1px; background: rgba(255,255,255,.08); margin: 12px 0}
+  .addRow{display:flex; gap:10px; align-items:center; margin-top: 10px;}
+  input[type="text"]{
+    flex:1;
+    padding: 12px 12px;
+    border-radius: 16px;
+    background: rgba(0,0,0,.20);
+    border:1px solid rgba(255,255,255,.12);
+    color: var(--text);
+    outline:none;
+  }
+  input[type="text"]::placeholder{color: rgba(242,245,244,.45)}
+  .miniBtn{
+    padding: 12px 12px;
+    border-radius: 16px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    color: rgba(242,245,244,.92);
+    cursor:pointer;
+    font-weight:850;
+    min-width: 92px;
+  }
+
+  .modeCard{display:grid; gap:10px;}
+  .mode{
+    border-radius: 22px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.05);
+    padding: 14px;
+    cursor:pointer;
+  }
+  .mode .top{display:flex; align-items:center; justify-content:space-between}
+  .mode .ttl{font-size:16px; font-weight:900}
+  .mode .ds{margin:6px 0 0 0; color: rgba(242,245,244,.62); font-size:12px}
+  .mode.active{background: rgba(31,218,121,.10); border-color: rgba(31,218,121,.20);}
+  .lock{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(0,0,0,.20);
+    color: rgba(242,245,244,.82);
+    font-size:12px;
+  }
+  .lock .mini{width:8px;height:8px;border-radius:50%; background: rgba(242,245,244,.55)}
+  .lock.on .mini{background: var(--green); box-shadow:0 0 0 6px rgba(31,218,121,.12)}
+  .lock.on{border-color: rgba(31,218,121,.22)}
+
+  .miniList{display:grid; gap:10px; margin-top:10px}
+  .pillLine{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding: 12px 12px;
+    border-radius: 18px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.045);
+  }
+  .pillLine .l{display:flex; flex-direction:column}
+  .pillLine .l b{font-size:13px}
+  .pillLine .l span{font-size:12px; color: rgba(242,245,244,.55)}
+  .state{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    font-size:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(0,0,0,.20);
+  }
+  .state.ok{border-color: rgba(31,218,121,.22); background: rgba(31,218,121,.10)}
+  .state.warn{border-color: rgba(255,183,74,.20); background: rgba(255,183,74,.10)}
+  .state.bad{border-color: rgba(255,107,107,.20); background: rgba(255,107,107,.10)}
+  .state i{width:8px;height:8px;border-radius:50%}
+  .state.ok i{background: var(--green)}
+  .state.warn i{background: var(--amber)}
+  .state.bad i{background: var(--red)}
+  .tiny{font-size:12px; color: rgba(242,245,244,.58); margin:8px 0 0 0}
+
+  .modal{
+    position:absolute; inset:0;
+    background: rgba(0,0,0,.55);
+    display:none;
+    align-items:flex-end;
+    padding: 16px;
+    z-index:50;
+  }
+  .modal.show{display:flex}
+  .sheet{
+    width:100%;
+    border-radius: 26px;
+    background: rgba(10,14,13,.92);
+    border:1px solid rgba(255,255,255,.12);
+    padding: 14px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 40px 120px rgba(0,0,0,.65);
+  }
+  .sheet .head{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .sheet .head b{font-size:14px}
+  .close{
+    width:36px;height:36px;border-radius: 14px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    cursor:pointer;
+    color: rgba(242,245,244,.88);
+  }
+  .sheet .body{margin-top:10px; display:grid; gap:10px}
+  .sheet .body .opt{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 12px 12px;
+    border-radius: 18px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.04);
+    cursor:pointer;
+  }
+  .sheet .body .opt:hover{background: rgba(255,255,255,.06)}
+  .kbd{font-size:12px; color: rgba(242,245,244,.60)}
+
+
+  /* --- HOME V10 (clarity) --- */
+  .homeModules{display:grid; gap:12px;}
+  .homeCardTitle{font-size:12px; letter-spacing:1.2px; color: rgba(242,245,244,.62); text-transform:uppercase; margin:18px 0 10px 0;}
+  .moduleCard{background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.09); border-radius: 22px; padding: 12px; box-shadow: 0 26px 70px rgba(0,0,0,.45); backdrop-filter: blur(14px);}
+  .modRow{display:flex; align-items:center; justify-content:space-between; gap:12px; padding: 12px 10px; border-radius: 18px; border:1px solid rgba(255,255,255,.09); background: rgba(255,255,255,.04); cursor:pointer;}
+  .modRow:active{transform: translateY(1px);}
+  .modTxt{display:flex; flex-direction:column;}
+  .modTxt b{font-size:14px; letter-spacing:-.2px; color: var(--green);}
+  .modTxt span{font-size:12px; color: rgba(242,245,244,.60); margin-top:2px;}
+  .pillBtn{padding: 10px 14px; border-radius: 14px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.18); color: rgba(242,245,244,.92); font-weight:800; cursor:pointer;}
+  .pillBtn:active{transform: translateY(1px);}
+  .modeWord{color: var(--green);}
+
+  /* --- CLEAN OVERRIDES (V5 FIX) --- */
+  .grid3 .tile{min-height:88px;}
+  .grid3 .tile.primary{min-height:96px; box-shadow: 0 14px 40px rgba(0,0,0,.45); border-color: rgba(31,111,74,.55);}
+  .rowCard .btn{min-height:44px; padding:12px 16px;}
+  .rowCard{padding:14px;}
+  .rowCard .meta{opacity:.82}
+
+
+  /* --- PERF OVERRIDES (V13) --- */
+  /* Desktop mouse-wheel can feel "sticky" with heavy blur. Disable blur on fine pointers (laptop/desktop). */
+  @media (pointer:fine){
+    .pill, .tile, .card, .nav, .mode, .item, .heroBag, .sheet, .scanBox, .kpi, .seg{
+      backdrop-filter: none !important;
+    }
+    .pill, .tile, .card, .nav, .mode, .item, .heroBag, .sheet, .scanBox, .kpi{
+      box-shadow: none !important;
+    }
+  }
+
+  /* Smooth scrolling can feel laggy on some browsers; keep native behavior */
+  html, body { scroll-behavior: auto; }
+
+
+/* --- V17: Stats + Scorecard --- */
+.kpiGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.kpiBox{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px}
+.kpiBox .k{font-size:12px;color:var(--muted)}
+.kpiBox .v{font-size:20px;font-weight:900;margin-top:4px}
+.chartCard{margin-top:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px}
+.chartTitle{font-size:12px;color:var(--muted);margin-bottom:10px}
+.spark{display:flex;align-items:flex-end;gap:4px;height:54px}
+.spark .bar{flex:1;border-radius:6px}
+.gridDots{position:relative;height:140px;border-radius:14px;border:1px dashed rgba(255,255,255,.15);overflow:hidden}
+.gridDots .dot{position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(31,218,121,.85)}
+.scoreTable{margin-top:12px}
+.scoreRow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:center;padding:10px 4px}
+.scoreRow.head{color:var(--muted);font-size:12px;padding-top:0}
+.scoreRow.total{font-weight:900}
+.scoreRow input{width:100%;padding:10px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:var(--text);font-weight:800;text-align:center}
+
+</style>
+
+<script>
+/**
+ * REALTIME (V20)
+ * - Mode DEMO (sans backend) : BroadcastChannel + localStorage (même navigateur).
+ * - Mode MULTI‑DEVICE (réel) : Firebase Realtime Database (optionnel).
+ *   → Colle ta config dans FIREBASE_CONFIG quand tu mets sur GitHub Pages.
+ */
+const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, projectId, ... }
+</script>
+<script src="./GolfCheck — Prototype V20 html_files/firebase-app-compat.js"></script>
+<script src="./GolfCheck — Prototype V20 html_files/firebase-database-compat.js"></script>
+
+</head>
+<body>
+<div class="phone" aria-label="GolfCheck Prototype V3">
+  <div class="screen">
+    <div class="status">
+      <div>9:41</div>
+      <div class="righticons">
+        <div class="pill" style="padding:6px 10px">
+          <span class="dot"></span><span id="topPill">Prêt</span>
+        </div>
+        <div class="pill" style="padding:6px 10px"><span>5G</span></div>
+        <div class="battery"><div class="lvl"></div></div>
+      </div>
+    </div>
+
+    <div class="appHeader">
+      <div class="brand">
+        <div class="mark"><div class="check"></div></div>
+        <div>
+          <h1><span>Golf</span>Check</h1>
+          <p class="sub" id="subline"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content" id="content">
+      <section class="view active" id="v-dashboard">
+        <div class="heroBag">
+          <div class="heroLeft">
+            <div class="tag"><span class="mini"></span><span id="bagState">Non scanné</span></div>
+            <div class="heroTitle" id="heroTitle">Prêt à scanner</div>
+            <p class="heroDesc" id="heroDesc">Preuve officielle • Checklist intelligente • Protection du matériel</p>
+          </div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn" data-go="scan" id="btnHomeScan">PRÊT À SCANNER</button>
+        </div>
+
+        <div class="homeCardTitle">Écosystème</div>
+        <div class="homeModules">
+          <div class="modRow" data-go="checklist" role="button" aria-label="Ouvrir Checklist IA">
+            <div class="modTxt">
+              <b>Checklist IA</b>
+              <span>Dynamique • Apprend</span>
+            </div>
+            <button class="pillBtn" tabindex="-1">Ouvrir</button>
+          </div>
+
+          <div class="modRow" data-go="secure" role="button" aria-label="Ouvrir Secure">
+            <div class="modTxt">
+              <b>Secure</b>
+              <span>Protégé • Assurance • Factures • Valeur</span>
+            </div>
+            <button class="pillBtn" tabindex="-1">Ouvrir</button>
+          </div>
+
+          <div class="modRow" data-go="zkep" role="button" aria-label="Ouvrir ZKEP">
+            <div class="modTxt">
+              <b>ZKEP</b>
+              <span>Conformité matériel • Certificat</span>
+            </div>
+            <button class="pillBtn" tabindex="-1">Ouvrir</button>
+          </div>
+        </div>
+
+        <div class="homeCardTitle"><span class="modeWord">Mode</span> actuel</div>
+        <div class="card">
+          <div class="row">
+            <div>
+              <div style="font-weight:900; letter-spacing:-.2px"><span class="modeWord">Mode</span> actuel</div>
+              <div style="color:rgba(242,245,244,.62); font-size:12px; margin-top:4px" id="modeLine">Entraînement</div>
+            </div>
+            <button class="btn small secondary" id="openModes">Changer</button>
+          </div>
+        </div>
+</section>
+
+      <section class="view" id="v-scan">
+        <div class="sectionTitle">Scan du sac</div>
+
+        <div class="scanPane">
+          <div class="scanBox" id="scanBox">
+            <div class="hint"><span class="mini"></span><span id="scanHint">Prêt</span></div>
+            <div class="frame"></div>
+            <div class="beam"></div>
+            <div class="spark"></div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi">
+              <div class="lab">ZKEP<br><span style="font-size:12px;opacity:.7">Conformité matériel certifiée</span></div>
+              <div class="val"><span id="detCount">0</span> / 14</div>
+              <div class="bar"><i id="detBar" style="width:0%"></i></div>
+              <div class="sub" id="detSub">Aucun scan</div>
+            </div>
+            <div class="kpi">
+              <div class="lab">Checklist</div>
+              <div class="val" id="ckState">Non validée</div>
+              <div class="sub" id="ckSub">Passe au vert → compétition</div>
+            </div>
+          </div>
+
+          <div class="btnRow">
+            <button class="btn" id="btnStartScan">Lancer le scan</button>
+            <button class="btn secondary" id="btnGoChecklist">Checklist</button>
+          </div>
+
+          <div class="card">
+            <div class="row">
+              <div>
+                <div style="font-weight:900">État du sac</div>
+                <div style="color:rgba(242,245,244,.62); font-size:12px; margin-top:4px" id="scanResultLine">—</div>
+              </div>
+              <div class="pill"><span class="dot" id="scanDot"></span><span id="scanState">Prêt à jouer</span></div>
+            </div>
+            <div class="list" id="scanList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="v-checklist">
+        <div class="sectionTitle">Checklist IA</div>
+        <div class="card">
+          <div class="row">
+            <div>
+              <div style="font-weight:900">Sac complet</div>
+              <p class="note">Tout au vert → validation auto.</p>
+            </div>
+            <div class="bigCheck" id="bigCheck" style="opacity: 0.8; filter: none;"><div class="tick"></div></div>
+          </div>
+
+          <div class="progressRow">
+            <div>
+              <div class="count"><span id="doneCount">0</span>/<span id="totalCount">20</span></div>
+              <p class="note" id="progressNote">9 vitaux à vérifier</p>
+            </div>
+            <div style="min-width:140px">
+              <div class="bar" style="height:12px"><i id="progBar" style="width:0%"></i></div>
+            </div>
+          </div>
+
+          <div class="muteline"></div>
+
+          <div class="row">
+            <button class="btn secondary small" id="btnAutoFromScan">Importer du scan</button>
+            <button class="btn small" id="btnValidate">Valider</button>
+          </div>
+
+          <p class="tiny" id="validateMsg"></p>
+        </div>
+
+        
+        <div class="card clickable" data-go="scorecard" style="cursor:pointer">
+          <div class="row">
+            <div>
+              <div style="font-weight:900">Carte de score</div>
+              <p class="note">18 trous • Import dans Statistiques</p>
+            </div>
+            <div class="pill ok">Ouvrir</div>
+          </div>
+        </div>
+
+<div class="sectionTitle">Équipement</div>
+        <div class="list" id="checkList"><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Bois 3</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="wood3">Présent</div>
+        <div class="chip off" data-act="skip" data-id="wood3">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Driver</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="driver">Présent</div>
+        <div class="chip off" data-act="skip" data-id="driver">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Fers (set)</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="ironSet">Présent</div>
+        <div class="chip off" data-act="skip" data-id="ironSet">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Hybride</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="hybrid">Présent</div>
+        <div class="chip off" data-act="skip" data-id="hybrid">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Putter</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="putter">Présent</div>
+        <div class="chip off" data-act="skip" data-id="putter">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Wedge 52°</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="wedge52">Présent</div>
+        <div class="chip off" data-act="skip" data-id="wedge52">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Wedge 56°</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="wedge56">Présent</div>
+        <div class="chip off" data-act="skip" data-id="wedge56">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Bois 5</div>
+          <div class="meta">Club</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="wood5">Présent</div>
+        <div class="chip off" data-act="skip" data-id="wood5">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Wedge 60°</div>
+          <div class="meta">Club</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="wedge60">Présent</div>
+        <div class="chip off" data-act="skip" data-id="wedge60">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Balles</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="balls">Présent</div>
+        <div class="chip off" data-act="skip" data-id="balls">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Tees</div>
+          <div class="meta">Vital</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="tees">Présent</div>
+        <div class="chip off" data-act="skip" data-id="tees">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Eau</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="water">Présent</div>
+        <div class="chip off" data-act="skip" data-id="water">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Gants</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="gloves">Présent</div>
+        <div class="chip off" data-act="skip" data-id="gloves">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Marqueur</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="marker">Présent</div>
+        <div class="chip off" data-act="skip" data-id="marker">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Relève‑pitch</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="pitch">Présent</div>
+        <div class="chip off" data-act="skip" data-id="pitch">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Serviette</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="towel">Présent</div>
+        <div class="chip off" data-act="skip" data-id="towel">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Parapluie</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="umbrella">Présent</div>
+        <div class="chip off" data-act="skip" data-id="umbrella">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Powerbank</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="power">Présent</div>
+        <div class="chip off" data-act="skip" data-id="power">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Télémètre</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="rangefinder">Présent</div>
+        <div class="chip off" data-act="skip" data-id="rangefinder">Je ne le prends pas</div>
+      </div>
+    </div><div class="item">
+      <div class="left">
+        <div class="badge miss">
+          <div class="x"></div>
+        </div>
+        <div>
+          <div class="name">Veste pluie</div>
+          <div class="meta">Option</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip off" data-act="present" data-id="rain">Présent</div>
+        <div class="chip off" data-act="skip" data-id="rain">Je ne le prends pas</div>
+      </div>
+    </div></div>
+
+        <div class="sectionTitle">Ajouter un item perso</div>
+        <div class="card">
+          <div style="font-weight:900; margin-bottom:8px">Item libre</div>
+          <div class="addRow">
+            <input type="text" id="newItem" placeholder="Ex: Tapis putting, baguettes, corde...">
+            <button class="miniBtn" id="btnAdd">Ajouter</button>
+          </div>
+          <p class="tiny">IA = base large, puis ton sac devient “ton standard”.</p>
+        </div>
+      </section>
+
+      <section class="view" id="v-modes">
+        <div class="sectionTitle">Modes</div>
+
+        <div class="modeCard">
+          <div class="mode active" data-mode="entrainement">
+            <div class="top">
+              <div class="ttl">Entraînement</div>
+              <div class="lock"><span class="mini" style="background:var(--green)"></span><span>Libre</span></div>
+            </div>
+            <p class="ds">Checklist flexible. Ajouts rapides. Habitudes mémorisées.</p>
+          </div>
+
+          <div class="mode" data-mode="reconnaissance">
+            <div class="top">
+              <div class="ttl">Reconnaissance</div>
+              <div class="lock"><span class="mini" style="background:var(--green)"></span><span>Libre</span></div>
+            </div>
+            <p class="ds">Checklist + notes de parcours. Consignes de préparation.</p>
+          </div>
+
+          <div class="mode" data-mode="competition">
+            <div class="top">
+              <div class="ttl">Compétition</div>
+              <div class="lock" id="lockComp"><span class="mini"></span><span id="compLockTxt">Requiert validation</span></div>
+            </div>
+            <p class="ds">Checklist verrouillée après validation. Traçabilité + export (démo).</p>
+          </div>
+
+          <div class="mode" data-mode="statistique">
+            <div class="top">
+              <div class="ttl">Statistique</div>
+              <div class="lock"><span class="mini" style="background:var(--green)"></span><span>Libre</span></div>
+            </div>
+            <p class="ds">Historique, tendances d’oubli, suggestions d’optimisation.</p>
+          </div>
+        </div>
+      </section>
+      <section class="view" id="v-stats">
+        <div class="sectionTitle">Statistiques</div>
+
+        <div class="card">
+          <div class="row">
+            <div>
+              <div style="font-weight:900">Vue Pro</div>
+              <p class="note">KPIs + Strokes Gained. Source : scans &amp; cartes de score.</p>
+            </div>
+            <div class="pill ok">Saison</div>
+          </div>
+
+          <div class="kpiGrid">
+            <div class="kpiBox"><div class="k">Index</div><div class="v" id="kpiIndex">12.4</div></div>
+            <div class="kpiBox"><div class="k">Fairways</div><div class="v" id="kpiFW">58%</div></div>
+            <div class="kpiBox"><div class="k">GIR</div><div class="v" id="kpiGIR">46%</div></div>
+            <div class="kpiBox"><div class="k">Putts / trou</div><div class="v" id="kpiPutts">1.9</div></div>
+          </div>
+
+          <div class="muteline"></div>
+
+          <div class="kpiGrid">
+            <div class="kpiBox"><div class="k">SG Tee</div><div class="v" id="kpiSGTee">+0.4</div></div>
+            <div class="kpiBox"><div class="k">SG Approche</div><div class="v" id="kpiSGApp">-0.1</div></div>
+            <div class="kpiBox"><div class="k">SG Putting</div><div class="v" id="kpiSGPut">+0.2</div></div>
+            <div class="kpiBox"><div class="k">SG Total</div><div class="v" id="kpiSGTot">+0.5</div></div>
+          </div>
+
+          <div class="muteline"></div>
+
+          <div class="chartCard">
+            <div class="chartTitle">Tendance (7 dernières parties)</div>
+            <div class="spark" id="sparkLine" aria-label="sparkline"><div class="bar" style="height: 18.8px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 29.8px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 25.4px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 34.2px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 37.28px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 32px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 41.68px; background: rgba(31, 218, 121, 0.85);"></div></div>
+          </div>
+
+          <div class="chartCard">
+            <div class="chartTitle">Dispersion</div>
+            <div class="gridDots" id="dispDots" aria-label="dispersion"><div class="dot" style="left: 88.1533%; top: 13.2928%; opacity: 0.799444;"></div><div class="dot" style="left: 11.6012%; top: 21.8323%; opacity: 0.611839;"></div><div class="dot" style="left: 46.8869%; top: 75.4147%; opacity: 0.901283;"></div><div class="dot" style="left: 26.1885%; top: 82.3981%; opacity: 0.567937;"></div><div class="dot" style="left: 63.3464%; top: 68.7238%; opacity: 0.420833;"></div><div class="dot" style="left: 75.4595%; top: 77.3613%; opacity: 0.351943;"></div><div class="dot" style="left: 41.8968%; top: 28.3389%; opacity: 0.6109;"></div><div class="dot" style="left: 15.222%; top: 55.6841%; opacity: 0.924704;"></div><div class="dot" style="left: 18.2374%; top: 62.0178%; opacity: 0.677831;"></div><div class="dot" style="left: 50.6225%; top: 34.183%; opacity: 0.839562;"></div><div class="dot" style="left: 47.0459%; top: 63.6389%; opacity: 0.711642;"></div><div class="dot" style="left: 66.0131%; top: 73.9467%; opacity: 0.784356;"></div><div class="dot" style="left: 48.7067%; top: 34.2996%; opacity: 0.553237;"></div><div class="dot" style="left: 63.2877%; top: 78.5473%; opacity: 0.944717;"></div></div>
+          </div>
+
+          <p class="tiny">Les valeurs sont des exemples de démo. Dans la version OEM, elles proviennent de la carte de score + télémétrie.</p>
+        </div>
+      </section>
+
+      <section class="view" id="v-scorecard">
+        <div class="sectionTitle">Carte de score</div>
+
+        <div class="card">
+          <div class="row">
+            <div>
+              <div style="font-weight:900">Parcours — 18 trous</div>
+              <p class="note">Remplis au départ. Sert aux stats.</p>
+            </div>
+            <button class="btn secondary small" data-go="checklist">Retour</button>
+          </div>
+
+          <div class="scoreTable">
+            <div class="scoreRow head">
+              <div>Trou</div><div>Par</div><div>Score</div>
+            </div>
+            <div id="scoreRows"><div class="scoreRow"><div>1</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="0"></div></div><div class="scoreRow"><div>2</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="1"></div></div><div class="scoreRow"><div>3</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="2"></div></div><div class="scoreRow"><div>4</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="3"></div></div><div class="scoreRow"><div>5</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="4"></div></div><div class="scoreRow"><div>6</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="5"></div></div><div class="scoreRow"><div>7</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="6"></div></div><div class="scoreRow"><div>8</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="7"></div></div><div class="scoreRow"><div>9</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="8"></div></div><div class="scoreRow"><div>10</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="9"></div></div><div class="scoreRow"><div>11</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="10"></div></div><div class="scoreRow"><div>12</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="11"></div></div><div class="scoreRow"><div>13</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="12"></div></div><div class="scoreRow"><div>14</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="13"></div></div><div class="scoreRow"><div>15</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="14"></div></div><div class="scoreRow"><div>16</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="15"></div></div><div class="scoreRow"><div>17</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="16"></div></div><div class="scoreRow"><div>18</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="17"></div></div></div>
+            <div class="muteline"></div>
+            <div class="scoreRow total">
+              <div>Total</div><div id="parTotal">72</div><div id="scoreTotal">—</div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:12px">
+            <button class="btn secondary small" id="btnScoreAuto">Auto-remplir (démo)</button>
+            <button class="btn small" id="btnScoreSave">Enregistrer</button>
+          </div>
+          <p class="tiny" id="scoreMsg"></p>
+        </div>
+      </section>
+
+
+      <section class="view" id="v-zkep">
+        <div class="sectionTitle">ZKEP</div>
+        <div class="card">
+          <div style="font-weight:900; font-size:16px">Conformité matériel</div>
+          <p class="note" style="margin-top:6px">
+            ZKEP = règles/équipement (14 clubs). Ce n’est pas la checklist perso.
+          </p>
+
+          <div class="miniList">
+            <div class="pillLine">
+              <div class="l"><b>Clubs</b><span><span id="zkClub">0</span>/14 détectés</span></div>
+              <div class="state warn" id="zkClubState"><i></i><span>À vérifier</span></div>
+            </div>
+
+            <div class="pillLine">
+              <div class="l"><b>Authenticité</b><span>Indicateur</span></div>
+              <div class="state ok"><i></i><span>OK</span></div>
+            </div>
+
+            <div class="pillLine">
+              <div class="l"><b>Matériel nominatif</b><span>À activer (plus tard)</span></div>
+              <div class="state warn"><i></i><span>Option</span></div>
+            </div>
+
+            <div class="pillLine">
+              <div class="l"><b>Certificat ZKEP</b><span>Preuve de conformité du sac</span></div>
+              <div class="state ok"><i></i><span>Prêt</span></div>
+            </div>
+          </div>
+
+          <div class="muteline"></div>
+
+          <div class="btnRow">
+            <button class="btn secondary" id="btnZkBack">Retour</button>
+            <button class="btn" id="btnZkToScan">Scanner</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="v-secure">
+        <div class="sectionTitle">Secure</div>
+        <div class="card">
+          <div style="font-weight:900; font-size:16px">Assurance &amp; valeur</div>
+          <p class="note" style="margin-top:6px">
+            Pour factures, valeur du sac, photos, preuves (démo).
+          </p>
+
+          <div class="miniList">
+            <div class="pillLine">
+              <div class="l"><b>Factures</b><span>Ajouter 1 document</span></div>
+              <div class="state warn"><i></i><span>Manque</span></div>
+            </div>
+            <div class="pillLine">
+              <div class="l"><b>Photos</b><span>Ajoute 3 photos</span></div>
+              <div class="state warn"><i></i><span>Manque</span></div>
+            </div>
+            <div class="pillLine">
+              <div class="l"><b>Valeur</b><span>Estimation</span></div>
+              <div class="state ok"><i></i><span>OK</span></div>
+            </div>
+            <div class="pillLine">
+              <div class="l"><b>Multi‑téléphones</b><span>Historique de scans (démo)</span></div>
+              <div class="state ok"><i></i><span>OK</span></div>
+            </div>
+          </div>
+
+          <div class="muteline"></div>
+          <button class="btn secondary" data-go="dashboard">Retour</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="nav" id="nav">
+      <div class="tab active" data-go="dashboard">
+        <div class="ticon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M4 12l8-8 8 8v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div>Dashboard</div>
+      </div>
+      <div class="tab" data-go="scan">
+        <div class="ticon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M7 3H5a2 2 0 0 0-2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M17 3h2a2 2 0 0 1 2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M7 21H5a2 2 0 0 1-2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M17 21h2a2 2 0 0 0 2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M8 12h8" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div>Scan</div>
+      </div>
+      <div class="tab" data-go="checklist">
+        <div class="ticon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M9 11l2 2 4-5" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M7 4h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="rgba(242,245,244,.85)" stroke-width="2"></path>
+          </svg>
+        </div>
+        <div>Checklist</div>
+      </div>
+      <div class="tab" data-go="modes">
+        <div class="ticon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v18" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M3 12h18" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div>Modes</div>
+      </div>
+    </div>
+
+    <div class="modal" id="modesModal">
+      <div class="sheet">
+        <div class="head">
+          <b>Choisir un mode</b>
+          <button class="close" id="closeModes">✕</button>
+        </div>
+        <div class="body">
+          <div class="opt" data-mode="entrainement"><span>Entraînement</span><span class="kbd">Libre</span></div>
+          <div class="opt" data-mode="reconnaissance"><span>Reconnaissance</span><span class="kbd">Libre</span></div>
+          <div class="opt" data-mode="competition"><span>Compétition</span><span class="kbd">Validation requise</span></div>
+          <div class="opt" data-mode="statistique"><span>Statistique</span><span class="kbd">Libre</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const BASE_LIBRARY = [
+  {id:"driver", name:"Driver", type:"club", vital:true},
+  {id:"wood3", name:"Bois 3", type:"club", vital:true},
+  {id:"wood5", name:"Bois 5", type:"club", vital:false},
+  {id:"hybrid", name:"Hybride", type:"club", vital:true},
+  {id:"ironSet", name:"Fers (set)", type:"club", vital:true},
+  {id:"wedge52", name:"Wedge 52°", type:"club", vital:true},
+  {id:"wedge56", name:"Wedge 56°", type:"club", vital:true},
+  {id:"wedge60", name:"Wedge 60°", type:"club", vital:false},
+  {id:"putter", name:"Putter", type:"club", vital:true},
+  {id:"balls", name:"Balles", type:"ess", vital:true},
+  {id:"tees", name:"Tees", type:"ess", vital:true},
+  {id:"gloves", name:"Gants", type:"ess", vital:false},
+  {id:"marker", name:"Marqueur", type:"ess", vital:false},
+  {id:"pitch", name:"Relève‑pitch", type:"ess", vital:false},
+  {id:"towel", name:"Serviette", type:"ess", vital:false},
+  {id:"water", name:"Eau", type:"ess", vital:false},
+  {id:"rangefinder", name:"Télémètre", type:"opt", vital:false},
+  {id:"umbrella", name:"Parapluie", type:"opt", vital:false},
+  {id:"rain", name:"Veste pluie", type:"opt", vital:false},
+  {id:"power", name:"Powerbank", type:"opt", vital:false},
+];
+
+let state = {
+  mode: "entrainement",
+  validated: false,
+  personal: new Map(),
+  custom: [],
+  lastScan: null,
+};
+
+BASE_LIBRARY.forEach(x=> state.personal.set(x.id, {present:false, skipped:false}));
+state.personal.set("scorecard", {present:false, skipped:false});
+
+const views = {
+  dashboard: document.getElementById("v-dashboard"),
+  scan: document.getElementById("v-scan"),
+  checklist: document.getElementById("v-checklist"),
+  modes: document.getElementById("v-modes"),
+  zkep: document.getElementById("v-zkep"),
+  secure: document.getElementById("v-secure"),
+  stats: document.getElementById("v-stats"),
+  scorecard: document.getElementById("v-scorecard"),
+};
+
+function go(name){
+  Object.entries(views).forEach(([k,el])=> el.classList.toggle("active", k===name));
+  document.querySelectorAll(".nav .tab").forEach(t=> t.classList.toggle("active", t.dataset.go===name));
+  const sub = document.getElementById("subline");
+  const map = {dashboard:"",
+               scan:"Scan du sac • Détection • Import",
+               checklist:"Checklist IA • Personnalisée • Validation",
+               modes:"Modes • Entraînement • Compétition • Statistiques",
+               zkep:"ZKEP • Conformité matériel",
+               secure:"Secure • Assurance & valeur",
+               stats:"Statistiques • KPIs • Strokes Gained",
+               scorecard:"Carte de score • 18 trous • Import"};
+  sub.textContent = map[name] || "GolfCheck";
+  document.getElementById("content").scrollTop = 0;
+  refreshUI();
+}
+
+document.querySelectorAll("[data-go]").forEach(el=> el.addEventListener("click", ()=> go(el.dataset.go)));
+document.querySelectorAll(".nav .tab").forEach(t=> t.addEventListener("click", ()=> go(t.dataset.go)));
+
+const modesModal = document.getElementById("modesModal");
+document.getElementById("openModes").addEventListener("click", ()=> modesModal.classList.add("show"));
+document.getElementById("closeModes").addEventListener("click", ()=> modesModal.classList.remove("show"));
+modesModal.addEventListener("click",(e)=>{ if(e.target===modesModal) modesModal.classList.remove("show") });
+
+document.querySelectorAll(".sheet .opt").forEach(opt=>{
+  opt.addEventListener("click", ()=>{
+    setMode(opt.dataset.mode);
+    modesModal.classList.remove("show");
+    go("modes");
+  });
+});
+document.querySelectorAll(".mode").forEach(m=> m.addEventListener("click", ()=> { setMode(m.dataset.mode); if(m.dataset.mode==="statistique"){ go("stats"); } }));
+
+function setMode(m){
+  if(m==="competition" && !state.validated){
+    go("checklist");
+    flash("Valide la checklist pour activer Compétition.");
+    return;
+  }
+  state.mode = m;
+  refreshUI();
+}
+
+const scanBox = document.getElementById("scanBox");
+const btnStartScan = document.getElementById("btnStartScan");
+const scanHint = document.getElementById("scanHint");
+const scanState = document.getElementById("scanState");
+const scanDot = document.getElementById("scanDot");
+const scanResultLine = document.getElementById("scanResultLine");
+const scanList = document.getElementById("scanList");
+
+btnStartScan.addEventListener("click", async ()=>{
+  scanBox.classList.add("scanning");
+  scanHint.textContent = "Scan en cours";
+  scanState.textContent = "Scan";
+  scanResultLine.textContent = "Analyse du sac…";
+  btnStartScan.disabled = true;
+  btnStartScan.textContent = "Scanning…";
+  await sleep(1200);
+
+  const scenario = pickScenario();
+  state.lastScan = scenario;
+  renderScan(scenario);
+
+  scanBox.classList.remove("scanning");
+  scanHint.textContent = "Terminé";
+  scanState.textContent = "OK";
+  scanResultLine.textContent = `Détecté: ${scenario.detectedIds.size} • Manquant: ${scenario.missingIds.size}`;
+
+  btnStartScan.disabled = false;
+  btnStartScan.textContent = "Relancer le scan";
+  refreshUI();
+});
+
+document.getElementById("btnGoChecklist").addEventListener("click", ()=> go("checklist"));
+
+function pickScenario(){
+  const detected = new Set();
+  const missing = new Set();
+  const clubs = BASE_LIBRARY.filter(x=>x.type==="club");
+  const essentials = BASE_LIBRARY.filter(x=>x.type!=="club");
+
+  clubs.forEach(c=>{
+    const v = state.personal.get(c.id);
+    const p = (v?.present ? 0.85 : 0.55) - (v?.skipped ? 0.30 : 0);
+    if(Math.random() < Math.max(0.10, Math.min(0.92, p))){ detected.add(c.id); }
+    else { missing.add(c.id); }
+  });
+  while([...detected].filter(id=>BASE_LIBRARY.find(x=>x.id===id)?.type==="club").length < 10){
+    const c = clubs[Math.floor(Math.random()*clubs.length)];
+    detected.add(c.id); missing.delete(c.id);
+  }
+
+  essentials.forEach(e=>{
+    const v = state.personal.get(e.id);
+    const p = (v?.present ? 0.78 : 0.45) - (v?.skipped ? 0.35 : 0);
+    if(Math.random() < Math.max(0.06, Math.min(0.90, p))){ detected.add(e.id); }
+    else { missing.add(e.id); }
+  });
+
+  state.custom.forEach(ci=>{
+    const p = ci.present ? 0.85 : 0.45;
+    if(Math.random() < p){ detected.add(ci.id); } else { missing.add(ci.id); }
+  });
+
+  const clubsDetected = [...detected].filter(id=> (BASE_LIBRARY.find(x=>x.id===id)?.type==="club")).length;
+
+  return { detectedIds: detected, missingIds: missing, clubsDetected };
+}
+
+function renderScan(s){
+  document.getElementById("detCount").textContent = Math.min(14, s.clubsDetected);
+  document.getElementById("detBar").style.width = `${Math.min(100, (s.clubsDetected/14)*100)}%`;
+  document.getElementById("detSub").textContent = `Clubs détectés`;
+  scanList.innerHTML = "";
+
+  const detectedArr = [...s.detectedIds].map(id=> getItemName(id)).slice(0,8);
+  const missingArr = [...s.missingIds].map(id=> getItemName(id)).slice(0,4);
+
+  const pack = [
+    ...detectedArr.map(n=>({name:n, ok:true, meta:"Détecté"})),
+    ...missingArr.map(n=>({name:n, ok:false, meta:"À vérifier"})),
+  ];
+
+  pack.forEach(p=>{
+    const el = document.createElement("div");
+    el.className = "item";
+    el.innerHTML = `
+      <div class="left">
+        <div class="badge ${p.ok ? "ok":"miss"}">
+          ${p.ok ? `<div class="tick"></div>` : `<div class="x"></div>`}
+        </div>
+        <div>
+          <div class="name">${escapeHtml(p.name)}</div>
+          <div class="meta">${escapeHtml(p.meta)}</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip ${p.ok?"on":"off"}">${p.ok?"OK":"Manque"}</div>
+      </div>
+    `;
+    scanList.appendChild(el);
+  });
+
+  document.getElementById("zkClub").textContent = s.clubsDetected;
+  const st = document.getElementById("zkClubState");
+  if(s.clubsDetected>=14){ st.className="state ok"; st.innerHTML='<i></i><span>OK</span>'; }
+  else if(s.clubsDetected>=12){ st.className="state warn"; st.innerHTML='<i></i><span>À vérifier</span>'; }
+  else { st.className="state bad"; st.innerHTML='<i></i><span>Incomplet</span>'; }
+}
+
+document.getElementById("btnAutoFromScan").addEventListener("click", ()=>{
+  if(!state.lastScan){ flash("Fais un scan, puis importe."); go("scan"); return; }
+  state.lastScan.detectedIds.forEach(id=>{
+    if(state.personal.has(id)){
+      const v = state.personal.get(id);
+      if(!v.skipped) v.present = true;
+    } else {
+      const c = state.custom.find(x=>x.id===id);
+      if(c && !c.skipped) c.present = true;
+    }
+  });
+  state.lastScan.missingIds.forEach(id=>{
+    if(state.personal.has(id)){
+      const v = state.personal.get(id);
+      if(!v.skipped) v.present = false;
+    } else {
+      const c = state.custom.find(x=>x.id===id);
+      if(c && !c.skipped) c.present = false;
+    }
+  });
+  state.validated = false;
+  flash("Scan importé dans la checklist.");
+  refreshUI();
+});
+
+const checkList = document.getElementById("checkList");
+const doneCount = document.getElementById("doneCount");
+const totalCount = document.getElementById("totalCount");
+const progBar = document.getElementById("progBar");
+const progressNote = document.getElementById("progressNote");
+const validateMsg = document.getElementById("validateMsg");
+
+
+
+document.getElementById("btnValidate").addEventListener("click", ()=>{
+  const {done,total,missingVitals} = computeProgress();
+  if(done===total){
+    state.validated = true;
+    flash("Checklist validée.");
+    refreshUI();
+    return;
+  }
+  if(missingVitals.length){
+    flash("Vitaux manquants: " + missingVitals.map(x=>x.name).slice(0,3).join(", ") + (missingVitals.length>3?"…":""));
+  }else{
+    flash("Il reste des éléments à vérifier.");
+  }
+  refreshUI();
+});
+
+document.getElementById("btnAdd").addEventListener("click", ()=>{
+  const inp = document.getElementById("newItem");
+  const name = (inp.value||"").trim();
+  if(!name) return;
+  const id = "c_"+Math.random().toString(16).slice(2,10);
+  state.custom.push({id, name, present:false, skipped:false});
+  inp.value="";
+  state.validated = false;
+  flash("Ajouté: " + name);
+  refreshUI();
+});
+
+function computeProgress(){
+  const items = getChecklistItems();
+  const total = items.length;
+  const done = items.filter(x=>x.present || x.skipped).length;
+  const missingVitals = items.filter(x=>x.vital && !x.present && !x.skipped);
+  return {done,total,missingVitals};
+}
+
+
+function getChecklistItems(){
+  const baseItems = BASE_LIBRARY.map(x=>{
+    const v = state.personal.get(x.id);
+    return { id:x.id, name:x.name, vital:!!x.vital, present:!!v?.present, skipped:!!v?.skipped, type:x.type };
+  });
+  const custom = state.custom.map(x=>({ id:x.id, name:x.name, vital:false, present:!!x.present, skipped:!!x.skipped, type:"custom" }));
+  let all = [...baseItems, ...custom];
+
+  // Contexte automatique :
+  // - dernier scan => logique "au départ" (vitaux en premier + clubs)
+  // - sinon => logique "à la maison" (tri par type)
+  const isDepart = !!state.lastScan;
+
+  if(isDepart){
+    // Carte de score : généralement donnée au départ
+    all.unshift({ id:"scorecard", name:"Carte de score", vital:false, present:!!state.personal.get("scorecard")?.present, skipped:!!state.personal.get("scorecard")?.skipped, type:"ess" });
+
+    all = all.sort((a,b)=>{
+      if(a.id==="scorecard") return -1;
+      if(b.id==="scorecard") return 1;
+      if(a.vital!==b.vital) return a.vital? -1: 1;
+      if(a.type==="club" && b.type!=="club") return -1;
+      if(a.type!=="club" && b.type==="club") return 1;
+      return a.name.localeCompare(b.name);
+    });
+  }else{
+    const rank = (t)=> t==="club"?0 : t==="ess"?1 : t==="opt"?2 : 3;
+    all = all.sort((a,b)=>{
+      const ra=rank(a.type), rb=rank(b.type);
+      if(ra!==rb) return ra-rb;
+      if(a.vital!==b.vital) return a.vital? -1: 1;
+      return a.name.localeCompare(b.name);
+    });
+  }
+  return all;
+}
+
+function renderChecklist(){
+  const items = getChecklistItems();
+  checkList.innerHTML = "";
+
+  items.forEach(it=>{
+    const el = document.createElement("div");
+    el.className = "item";
+    const badge = it.present ? "ok" : (it.skipped ? "" : "miss");
+    const meta = it.vital ? "Vital" : (it.type==="club" ? "Club" : (it.type==="custom" ? "Perso" : "Option"));
+    el.innerHTML = `
+      <div class="left">
+        <div class="badge ${badge}">
+          ${it.present ? `<div class="tick"></div>` : (it.skipped ? `<div style="width:12px;height:12px;border-radius:6px;background:rgba(242,245,244,.22)"></div>` : `<div class="x"></div>`)}
+        </div>
+        <div>
+          <div class="name">${escapeHtml(it.name)}</div>
+          <div class="meta">${meta}</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="chip ${it.present?"on":"off"}" data-act="present" data-id="${it.id}">Présent</div>
+        <div class="chip ${it.skipped?"on":"off"}" data-act="skip" data-id="${it.id}">Je ne le prends pas</div>
+      </div>
+    `;
+    checkList.appendChild(el);
+  });
+
+  checkList.querySelectorAll(".chip").forEach(ch=>{
+    ch.addEventListener("click", ()=>{
+      const id = ch.dataset.id;
+      const act = ch.dataset.act;
+      toggleItem(id, act);
+    });
+  });
+
+  const {done,total,missingVitals} = computeProgress();
+  doneCount.textContent = done;
+  totalCount.textContent = total;
+  progBar.style.width = `${Math.round((done/Math.max(1,total))*100)}%`;
+  progressNote.textContent = missingVitals.length ? `${missingVitals.length} vitaux à vérifier` : "OK";
+
+  const big = document.getElementById("bigCheck");
+  if(done===total){ big.style.opacity = 1; big.style.filter = "drop-shadow(0 0 18px rgba(31,218,121,.25))"; }
+  else{ big.style.opacity = .8; big.style.filter = "none"; }
+
+  document.getElementById("ckState").textContent = state.validated ? "Validée" : "Non validée";
+  document.getElementById("ckSub").textContent = state.validated ? "Compétition disponible" : "Passe au vert → compétition";
+}
+
+function toggleItem(id, act){
+  const isBase = state.personal.has(id);
+  const rec = isBase ? state.personal.get(id) : state.custom.find(x=>x.id===id);
+  if(!rec) return;
+
+  if(act==="present"){
+    rec.present = !rec.present;
+    if(rec.present) rec.skipped = false;
+  }else if(act==="skip"){
+    rec.skipped = !rec.skipped;
+    if(rec.skipped) rec.present = false;
+  }
+  state.validated = false;
+  refreshUI();
+}
+
+document.getElementById("btnZkBack").addEventListener("click", ()=> go("dashboard"));
+document.getElementById("btnZkToScan").addEventListener("click", ()=> go("scan"));
+
+function refreshUI(){
+  const modeMap = {entrainement:"Entraînement", reconnaissance:"Reconnaissance", competition:"Compétition", statistique:"Statistique"};
+  document.getElementById("modeLine").textContent = modeMap[state.mode] || "Entraînement";
+  document.getElementById("topPill").textContent = state.lastScan ? "Sac scanné" : "Prêt";
+  document.getElementById("bagState").textContent = state.lastScan ? "Sac identifié" : "Non scanné";
+  document.getElementById("heroTitle").textContent = state.lastScan ? "Dernier scan enregistré" : "Prêt à scanner";
+  document.getElementById("heroDesc").textContent = state.lastScan ? "Importer le scan dans la checklist." : "Preuve officielle • Checklist intelligente • Protection du matériel";
+
+  document.querySelectorAll(".mode").forEach(x=> x.classList.toggle("active", x.dataset.mode===state.mode));
+
+  const compLock = document.getElementById("lockComp");
+  const compTxt = document.getElementById("compLockTxt");
+  if(state.validated){ compLock.classList.add("on"); compTxt.textContent="Disponible"; }
+  else{ compLock.classList.remove("on"); compTxt.textContent="Requiert validation"; }
+
+  if(state.lastScan){
+    renderScan(state.lastScan);
+    scanResultLine.textContent = `Détecté: ${state.lastScan.detectedIds.size} • Manquant: ${state.lastScan.missingIds.size}`;
+    scanState.textContent = "OK";
+    scanHint.textContent = "Prêt";
+    scanDot.style.background = "var(--green)";
+  }else{
+    document.getElementById("detCount").textContent = "0";
+    document.getElementById("detBar").style.width = "0%";
+    document.getElementById("detSub").textContent = "Aucun scan";
+    scanList.innerHTML = "";
+    scanResultLine.textContent = "—";
+    scanState.textContent = "Prêt à jouer";
+  }
+
+  if(state.lastScan){ document.getElementById("zkClub").textContent = state.lastScan.clubsDetected; }
+  else{ document.getElementById("zkClub").textContent = "0"; }
+
+  renderChecklist();
+}
+
+function flash(txt){
+  validateMsg.textContent = txt;
+  validateMsg.style.opacity = "1";
+  setTimeout(()=>{ validateMsg.style.opacity = ".0"; }, 2100);
+}
+
+function getItemName(id){
+  const base = BASE_LIBRARY.find(x=>x.id===id);
+  if(base) return base.name;
+  const c = state.custom.find(x=>x.id===id);
+  return c ? c.name : id;
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+document.addEventListener("keydown",(e)=>{ if(e.key==="Escape"){ modesModal.classList.remove("show"); } });
+
+refreshUI();
+
+// --- Scorecard (V17) ---
+const defaultPar = [4,4,3,4,5,4,3,4,5, 4,3,5,4,4,3,4,5,4];
+function buildScoreRows(){
+  const wrap = document.getElementById("scoreRows");
+  if(!wrap) return;
+  wrap.innerHTML = "";
+  defaultPar.forEach((par,i)=>{
+    const row = document.createElement("div");
+    row.className = "scoreRow";
+    row.innerHTML = `<div>${i+1}</div><div>${par}</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="${i}"/></div>`;
+    wrap.appendChild(row);
+  });
+  document.getElementById("parTotal").textContent = String(defaultPar.reduce((a,b)=>a+b,0));
+}
+buildScoreRows();
+
+function calcScoreTotal(){
+  const inputs = document.querySelectorAll('#scoreRows input');
+  let total = 0, any=false;
+  inputs.forEach(inp=>{
+    const v = parseInt(inp.value||"",10);
+    if(!isNaN(v)){ total += v; any=true; }
+  });
+  document.getElementById("scoreTotal").textContent = any ? String(total) : "—";
+}
+
+document.addEventListener("input",(e)=>{
+  if(e.target && e.target.matches('#scoreRows input')) calcScoreTotal();
+});
+
+const btnScoreAuto = document.getElementById("btnScoreAuto");
+const btnScoreSave = document.getElementById("btnScoreSave");
+const scoreMsg = document.getElementById("scoreMsg");
+
+if(btnScoreAuto){
+  btnScoreAuto.addEventListener("click", ()=>{
+    document.querySelectorAll('#scoreRows input').forEach((inp,idx)=>{
+      const par = defaultPar[idx];
+      // simple demo distribution around par
+      const val = Math.max(2, Math.min(9, par + (Math.random()<0.6?0:(Math.random()<0.5?1:-1))));
+      inp.value = String(val);
+    });
+    calcScoreTotal();
+    scoreMsg.textContent = "Carte auto-remplie (démo).";
+  });
+}
+if(btnScoreSave){
+  btnScoreSave.addEventListener("click", ()=>{
+    const scores = [];
+    document.querySelectorAll('#scoreRows input').forEach((inp,idx)=>{
+      scores[idx] = parseInt(inp.value||"",10) || null;
+    });
+    state.scorecard = {par: defaultPar, scores, savedAt: Date.now()};
+    scoreMsg.textContent = "Enregistré. Les stats se mettent à jour.";
+    refreshUI();
+    go("stats");
+  });
+}
+
+// --- Stats widgets (V17) ---
+function renderSpark(){
+  const el = document.getElementById("sparkLine");
+  if(!el) return;
+  el.innerHTML = "";
+  // 7 bars
+  const arr = [0.2,0.45,0.35,0.55,0.62,0.5,0.72];
+  arr.forEach(v=>{
+    const b=document.createElement("div");
+    b.className="bar";
+    b.style.height = (10 + v*44) + "px";
+    b.style.background = "rgba(255,255,255,.18)";
+    el.appendChild(b);
+  });
+  // highlight last
+  if(el.lastChild) el.lastChild.style.background = "rgba(31,218,121,.85)";
+}
+function renderDispersion(){
+  const el = document.getElementById("dispDots");
+  if(!el) return;
+  el.innerHTML="";
+  for(let i=0;i<14;i++){
+    const d=document.createElement("div");
+    d.className="dot";
+    d.style.left = (10 + Math.random()*80) + "%";
+    d.style.top  = (10 + Math.random()*80) + "%";
+    d.style.opacity = (0.35 + Math.random()*0.6);
+    el.appendChild(d);
+  }
+}
+renderSpark();
+renderDispersion();
+
+</script>
+
+<div id="roomModal" style="position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.55);padding:18px;z-index:9999">
+  <div style="width:min(420px,100%);background:#0b1412;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px 14px 18px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="font-weight:900">Salon GolfCheck</div>
+      <button id="roomClose" style="background:transparent;border:none;color:rgba(255,255,255,.8);font-size:16px">✕</button>
+    </div>
+    <div style="margin-top:8px;font-size:12px;opacity:.75">
+      Même code sur 2 téléphones → événements partagés (Scan, Score, ZKEP).
+      <br>Pour le multi‑device réel, ajoute ensuite une config Firebase (optionnel).
+    </div>
+    <div style="margin-top:12px;display:flex;gap:10px">
+      <input id="roomInput" placeholder="Ex: MAJOR2026" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:white;border-radius:12px;padding:12px 12px;font-weight:800;text-transform:uppercase">
+      <button id="roomSave" style="background:var(--green);color:#04210f;border:none;border-radius:12px;padding:12px 14px;font-weight:900">OK</button>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+(function(){
+  const ROOM_KEY = "golfcheck_room_code_v20";
+  const uid = "u_" + Math.random().toString(16).slice(2) + Date.now().toString(16);
+  const bc = ("BroadcastChannel" in window) ? new BroadcastChannel("golfcheck_net_v20") : null;
+
+  let room = (localStorage.getItem(ROOM_KEY) || "DEMO").toUpperCase().trim();
+  const roomLabel = document.getElementById("roomCodeLabel");
+  const onlineCountEl = document.getElementById("onlineCount");
+  const feedEl = document.getElementById("liveFeed");
+  const modal = document.getElementById("roomModal");
+  const roomBtn = document.getElementById("roomBtn");
+  const roomClose = document.getElementById("roomClose");
+  const roomInput = document.getElementById("roomInput");
+  const roomSave = document.getElementById("roomSave");
+
+  const state = { online: 1, events: [] };
+
+  function render(){
+    if (roomLabel) roomLabel.textContent = room;
+    if (onlineCountEl) onlineCountEl.textContent = String(state.online);
+    if (!feedEl) return;
+    feedEl.innerHTML = "";
+    const items = state.events.slice(-6).reverse();
+    if (items.length === 0){
+      const div = document.createElement("div");
+      div.style.fontSize="12px"; div.style.opacity=".7";
+      div.textContent = "Aucun événement récent.";
+      feedEl.appendChild(div);
+      return;
+    }
+    for (const e of items){
+      const div = document.createElement("div");
+      div.style.fontSize="12px";
+      div.style.opacity=".9";
+      div.innerHTML = `<span style="opacity:.7">${e.t}</span> • <b>${e.who}</b> : ${e.msg}`;
+      feedEl.appendChild(div);
+    }
+  }
+
+  function nowTag(){
+    const d = new Date();
+    return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  }
+
+  function pushEvent(msg, who="Joueur"){
+    const ev = { room, t: nowTag(), who, msg };
+    state.events.push(ev);
+    render();
+    if (bc) bc.postMessage({type:"event", ev});
+
+    // MULTI‑DEVICE via Firebase (optionnel)
+    if (window.FIREBASE_CONFIG && window.firebase && window.firebase.database){
+      try{
+        if (!window.__gc_fb_inited){
+          firebase.initializeApp(window.FIREBASE_CONFIG);
+          window.__gc_fb_inited = true;
+        }
+        const db = firebase.database();
+        db.ref("rooms/"+room+"/events").push().set({ts: Date.now(), who, msg});
+      }catch(e){}
+    }
+  }
+
+  // Presence (demo): count tabs in same browser
+  function heartbeat(){
+    try{ localStorage.setItem("golfcheck_presence_"+room+"_"+uid, String(Date.now())); }catch(e){}
+    let n=0;
+    const cutoff = Date.now() - 15000;
+    for (let i=0;i<localStorage.length;i++){
+      const k = localStorage.key(i);
+      if (k && k.startsWith("golfcheck_presence_"+room+"_")){
+        const v = Number(localStorage.getItem(k) || "0");
+        if (v < cutoff) { try{ localStorage.removeItem(k);}catch(e){} }
+        else n++;
+      }
+    }
+    state.online = Math.max(1,n);
+    render();
+  }
+
+  if (bc){
+    bc.onmessage = (m)=>{
+      const data = m.data || {};
+      if (data.type === "event" && data.ev && data.ev.room === room){
+        state.events.push(data.ev);
+        render();
+      }
+    };
+  }
+
+  // Hook key clicks (best effort)
+  document.addEventListener("click", (e)=>{
+    const t = e.target;
+    if (!t) return;
+    const txt = (t.innerText || "").trim();
+    if (!txt) return;
+
+    if (/PRÊT À SCANNER|LANCER LE SCAN|SCAN/i.test(txt)){
+      pushEvent("Scan lancé", "Joueur");
+    }
+    if (/ZKEP/i.test(txt)){
+      pushEvent("ZKEP consulté", "Joueur");
+    }
+    if (/Statistiques?/i.test(txt)){
+      pushEvent("Statistiques ouvertes", "Joueur");
+    }
+    if (/Enregistrer/i.test(txt)){
+      pushEvent("Carte de score enregistrée", "Joueur");
+    }
+  }, true);
+
+  function openModal(){
+    if (!modal) return;
+    roomInput.value = room;
+    modal.style.display = "flex";
+    roomInput.focus();
+  }
+  function closeModal(){ if (modal) modal.style.display = "none"; }
+
+  if (roomBtn) roomBtn.addEventListener("click", openModal);
+  if (roomClose) roomClose.addEventListener("click", closeModal);
+  if (modal) modal.addEventListener("click", (e)=>{ if (e.target === modal) closeModal(); });
+  if (roomSave) roomSave.addEventListener("click", ()=>{
+    const v = (roomInput.value || "").toUpperCase().replace(/[^A-Z0-9_-]/g,"").slice(0,20) || "DEMO";
+    room = v;
+    localStorage.setItem(ROOM_KEY, room);
+    state.events = [];
+    closeModal();
+    pushEvent("Salon rejoint", "Système");
+    heartbeat();
+  });
+
+  pushEvent("Salon prêt", "Système");
+  heartbeat();
+  setInterval(heartbeat, 5000);
+})();
+</script>
+
+
+</body></html>
