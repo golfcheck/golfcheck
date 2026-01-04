@@ -1990,16 +1990,24 @@ renderDispersion();
 const btnValidate = document.getElementById("btnValidate");
 const progressNoteEl = document.getElementById("progressNote");
 function canValidate() {
+ const doneEl = document.getElementById("doneCount");
+ const totalEl = document.getElementById("totalCount");
+
+ const done = doneEl ? Number(doneEl.textContent.trim()) : NaN;
+ const total = totalEl ? Number(totalEl.textContent.trim()) : NaN;
+
+ if (!Number.isNaN(done) && !Number.isNaN(total) && total > 0) {
+   return done >= total;
+ }
+
  const t = (progressNoteEl?.textContent || "").toLowerCase();
 
- // OK si 0 vitaux à vérifier ou tout est validé
  if (t.includes("0 vit")) return true;
  if (t.includes("tout au vert")) return true;
  if (t.includes("ok")) return true;
 
- // OK si score parfait du type "20/20"
  const m = t.match(/(\d+)\s*\/\s*(\d+)/);
- if (m) return Number(m[1]) === Number(m[2]);
+ if (m) return Number(m[1]) >= Number(m[2]);
 
  return false;
 }
