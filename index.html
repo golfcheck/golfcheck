@@ -24,17 +24,7 @@
     --safeTop: env(safe-area-inset-top, 0px);
     --safeBottom: env(safe-area-inset-bottom, 0px);
   }
-html, body {
- margin: 0;
- padding: 0;
- height: 100%;
-}
 
-body {
- padding-top: env(safe-area-inset-top);
- padding-bottom: env(safe-area-inset-bottom);
- overflow-x: hidden;
-}
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
@@ -745,6 +735,8 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
               <div style="font-weight:900">Sac complet</div>
               <p class="note">Tout au vert → validation auto.</p>
             </div>
+            <div class="bigCheck" id="bigCheck" style="opacity: 0.8; filter: none;"><div class="tick"></div></div>
+          </div>
 
           <div class="progressRow">
             <div>
@@ -760,8 +752,7 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
 
           <div class="row">
             <button class="btn secondary small" id="btnAutoFromScan">Importer du scan</button>
-            <button class="btn small" id="btnValidate" >Valider</button>
-
+            <button class="btn small" id="btnValidate">Valider</button>
           </div>
 
           <p class="tiny" id="validateMsg"></p>
@@ -1726,7 +1717,6 @@ function refreshUI(){
   renderChecklist();
 }
 
-
 function flash(txt){
   validateMsg.textContent = txt;
   validateMsg.style.opacity = "1";
@@ -1997,41 +1987,7 @@ renderDispersion();
   heartbeat();
   setInterval(heartbeat, 5000);
 })();
-const btnValidate = document.getElementById("btnValidate");
-const progressNoteEl = document.getElementById("progressNote");
-function canValidate() {
- const doneEl = document.getElementById("doneCount");
- const totalEl = document.getElementById("totalCount");
-
- const done = doneEl ? Number(doneEl.textContent.trim()) : NaN;
- const total = totalEl ? Number(totalEl.textContent.trim()) : NaN;
-
- if (!Number.isNaN(done) && !Number.isNaN(total) && total > 0) {
-   return done >= total;
- }
-
- const t = (progressNoteEl?.textContent || "").toLowerCase();
-
- if (t.includes("0 vit")) return true;
- if (t.includes("tout au vert")) return true;
- if (t.includes("ok")) return true;
-
- const m = t.match(/(\d+)\s*\/\s*(\d+)/);
- if (m) return Number(m[1]) >= Number(m[2]);
-
- return false;
-}
-
-  
-if (btnValidate) {
-btnValidate.addEventListener("click", () => {
- if (!canValidate()) {
-   flash("Checklist incomplète : termine avant de valider.");
-   return;
- }
-});
-}
 </script>
-  
+
 
 </body></html>
