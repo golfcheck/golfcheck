@@ -2006,13 +2006,13 @@ function canValidate() {
 }
 
 if (btnValidate) {
- btnValidate.addEventListener("click", () => {
-   if (!canValidate()) {
-    alert("Checklist incomplète : termine avant de valider.");
-     return;
-   }
-   window.location.href = "valide.html";
- });
+btnValidate.addEventListener("click", () => {
+ if (!canValidate()) {
+   flash("Checklist incomplète : termine avant de valider.");
+   return;
+ }
+ window.location.href = "valide.html";
+});
 }
 </script>
   
