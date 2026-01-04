@@ -2008,7 +2008,7 @@ function canValidate() {
 if (btnValidate) {
  btnValidate.addEventListener("click", () => {
    if (!canValidate()) {
-     flash("Checklist incomplète : termine avant de valider.");
+    alert("Checklist incomplète : termine avant de valider.");
      return;
    }
    window.location.href = "valide.html";
