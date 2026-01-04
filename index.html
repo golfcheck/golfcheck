@@ -1990,6 +1990,12 @@ renderDispersion();
   heartbeat();
   setInterval(heartbeat, 5000);
 })();
+  const btnValidate = document.getElementById("btnValidate");
+if (btnValidate) {
+ btnValidate.addEventListener("click", () => {
+   window.location.href = "valide.html";
+ });
+}
 </script>
 
 
