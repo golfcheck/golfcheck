@@ -1989,19 +1989,22 @@ renderDispersion();
 })();
 const btnValidate = document.getElementById("btnValidate");
 const progressNoteEl = document.getElementById("progressNote");
-
 function canValidate() {
  const t = (progressNoteEl?.textContent || "").toLowerCase();
 
+ // OK si 0 vitaux à vérifier ou tout est validé
  if (t.includes("0 vit")) return true;
  if (t.includes("tout au vert")) return true;
  if (t.includes("ok")) return true;
 
+ // OK si score parfait du type "20/20"
  const m = t.match(/(\d+)\s*\/\s*(\d+)/);
  if (m) return Number(m[1]) === Number(m[2]);
 
  return false;
 }
+
+  
 if (btnValidate) {
 btnValidate.addEventListener("click", () => {
  if (!canValidate()) {
