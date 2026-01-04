@@ -24,7 +24,17 @@
     --safeTop: env(safe-area-inset-top, 0px);
     --safeBottom: env(safe-area-inset-bottom, 0px);
   }
+html, body {
+ margin: 0;
+ padding: 0;
+ height: 100%;
+}
 
+body {
+ padding-top: env(safe-area-inset-top);
+ padding-bottom: env(safe-area-inset-bottom);
+ overflow-x: hidden;
+}
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
