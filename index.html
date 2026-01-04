@@ -1991,9 +1991,27 @@ renderDispersion();
   heartbeat();
   setInterval(heartbeat, 5000);
 })();
-  const btnValidate = document.getElementById("btnValidate");
+const btnValidate = document.getElementById("btnValidate");
+const progressNoteEl = document.getElementById("progressNote");
+
+function canValidate() {
+ const t = (progressNoteEl?.textContent || "").toLowerCase();
+ // OK si ça dit 0 vitaux à vérifier OU "tout au vert"
+ if (t.includes("0 vit") || t.includes("tout au vert")) return true;
+
+ // OK si ça contient un format du style "20/20"
+ const m = t.match(/(\d+)\s*\/\s*(\d+)/);
+ if (m) return Number(m[1]) === Number(m[2]);
+
+ return false;
+}
+
 if (btnValidate) {
  btnValidate.addEventListener("click", () => {
+   if (!canValidate()) {
+     flash("Checklist incomplète : termine avant de valider.");
+     return;
+   }
    window.location.href = "valide.html";
  });
 }
