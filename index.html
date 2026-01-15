@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<!-- saved from url=(0186)file:///Users/abdou/Library/Containers/com.apple.mail/Data/Library/Mail%20Downloads/85BFC253-CAFF-42A0-AAD4-4A609BB2504D/GolfCheck_PARCOURS_prototype5_V20_FULL_realtimeRoom_iPhone12.html -->
-<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!doctype html>
+<html lang="fr">
+<head>
+<!-- BUILD V31B -->
 
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>GolfCheck — Prototype V3</title>
 <style>
   :root{
@@ -75,6 +77,9 @@
     border:1px solid rgba(255,255,255,.09);
     backdrop-filter: blur(14px);
   }
+.pill.active{ background: rgba(31,218,121,.14); border-color: rgba(31,218,121,.35); }
+.pill.active span, .pill.active{ color: var(--text); }
+
   .dot{width:8px;height:8px;border-radius:50%; background:var(--green); box-shadow:0 0 0 6px rgba(31,218,121,.12)}
   .righticons{display:flex; gap:8px; align-items:center; opacity:.92}
   .battery{width:24px;height:12px;border:1px solid rgba(255,255,255,.6); border-radius:3px; position:relative}
@@ -161,6 +166,10 @@
     font-size:12px;
   }
   .tag .mini{width:8px;height:8px;border-radius:50%; background: var(--green)}
+.dot-red{background:var(--red)!important}
+.dot-green{background:var(--green)!important}
+.dot-amber{background:var(--amber)!important}
+
   .heroTitle{margin:10px 0 2px 0; font-size:16px; letter-spacing:-.2px}
   .heroDesc{margin:0; color:var(--muted); font-size:12px}
   .heroRight{display:none;
@@ -493,6 +502,10 @@
   .state.ok{border-color: rgba(31,218,121,.22); background: rgba(31,218,121,.10)}
   .state.warn{border-color: rgba(255,183,74,.20); background: rgba(255,183,74,.10)}
   .state.bad{border-color: rgba(255,107,107,.20); background: rgba(255,107,107,.10)}
+.state.ok .dot{ background: var(--green); box-shadow:0 0 0 4px rgba(31,218,121,.12); }
+.state.warn .dot{ background: var(--amber); box-shadow:0 0 0 4px rgba(255,183,107,.12); }
+.state.bad .dot{ background: var(--red); box-shadow:0 0 0 4px rgba(255,107,107,.12); }
+
   .state i{width:8px;height:8px;border-radius:50%}
   .state.ok i{background: var(--green)}
   .state.warn i{background: var(--amber)}
@@ -550,6 +563,7 @@
   .modTxt span{font-size:12px; color: rgba(242,245,244,.60); margin-top:2px;}
   .pillBtn{padding: 10px 14px; border-radius: 14px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.18); color: rgba(242,245,244,.92); font-weight:800; cursor:pointer;}
   .pillBtn:active{transform: translateY(1px);}
+  .pillBtn.active{background: rgba(31,218,121,.18); border-color: rgba(31,218,121,.65); box-shadow: 0 10px 26px rgba(31,218,121,.10);}
   .modeWord{color: var(--green);}
 
   /* --- CLEAN OVERRIDES (V5 FIX) --- */
@@ -592,6 +606,254 @@
 .scoreRow.total{font-weight:900}
 .scoreRow input{width:100%;padding:10px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:var(--text);font-weight:800;text-align:center}
 
+
+
+/* V25 proof (subtle) */
+.gc-build{position:fixed;right:8px;top:8px;z-index:9999;font-size:10px;line-height:1;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);color:rgba(255,255,255,0.55);letter-spacing:.08em;user-select:none;pointer-events:none;}
+.gc-toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:9999;max-width:92vw;font-size:13px;padding:10px 12px;border-radius:14px;background:rgba(8,12,10,0.92);border:1px solid rgba(255,255,255,0.10);color:rgba(255,255,255,0.88);box-shadow:0 18px 40px rgba(0,0,0,0.55);opacity:0;pointer-events:none;transition:opacity .18s ease;}
+.gc-toast.show{opacity:1;}
+
+
+/* V35: Dashboard Mode Seg */
+/* V36: Fix Mode Seg overflow */
+#modeSeg{display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px}
+#modeSeg button{flex:0 0 auto; white-space:nowrap; padding:10px 10px; font-size:12px}
+
+#modeSeg button{font-size:12px;padding:10px 8px}
+#modeSeg button.active{background: rgba(31,218,121,.18); border:1px solid rgba(31,218,121,.22); color: rgba(242,245,244,.96)}
+
+/* V36: Alarm indicator */
+.alarmDot{width:10px;height:10px;border-radius:50%;background:#ff3b30; box-shadow:0 0 0 3px rgba(255,59,48,.18)}
+
+/* V37: Alarm badge in top bar */
+/* V38: Keep alarm inside app screen */
+.screen{position:relative}
+.alarmBadge{
+  position: absolute;
+  top: 34px; /* under iOS status icons inside screen */
+  right: 14px;
+}
+
+.alarmBadge{
+  position: absolute;
+  top: 26px; /* just under status area */
+  right: 14px;
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(242,245,244,.92);
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+}
+
+/* V39: Bell + red dot (premium alarm indicator) */
+.alarmBell{
+  font-size:16px;
+  line-height:1;
+}
+.alarmDotMini{
+  position:absolute;
+  top:2px;
+  right:2px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#ff3b30;
+  box-shadow:0 0 0 3px rgba(255,59,48,.22);
+}
+.alarmBadge{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:999px;
+}
+
+/* V40: Dashboard simplification (remove duplicated legacy actions) */
+#v-dashboard .btnRow{display:none !important;}
+
+/* V41: Remove Statistics from Ecosystem (kept only as a Mode) */
+#v-dashboard .tile[data-go="stats"]{display:none !important;}
+
+/* V44: Magic Scan + ZKEP modal */
+.scanPulse{animation:pulseGlow 900ms ease-out}
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 0 rgba(31,218,121,0)}
+  45%{box-shadow:0 0 26px rgba(31,218,121,.70)}
+  100%{box-shadow:0 0 0 rgba(31,218,121,0)}
+}
+.gcModal{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.58);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.gcModalCard{
+  width:88%;
+  max-width:340px;
+  background:rgba(15,23,21,.98);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+}
+.gcModalHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 14px 10px 14px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.mhLeft{display:flex; gap:10px; align-items:center}
+.sealMini{
+  width:38px; height:38px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(31,218,121,.14);
+  border:1px solid rgba(31,218,121,.22);
+  color:rgba(31,218,121,.95);
+  font-weight:900;
+  letter-spacing:1px;
+}
+.mhTitle{font-weight:900}
+.mhSub{font-size:11px; color:rgba(242,245,244,.62); margin-top:2px}
+.iconBtn{
+  width:34px; height:34px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.25);
+  color:rgba(242,245,244,.9);
+}
+.gcModalBody{padding:14px}
+.zkepToken{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size:12px;
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.08);
+}
+.zkepGrid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+.zkepItem{
+  padding:10px 10px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  text-align:left;
+}
+.zkepItem span{display:block; font-size:11px; color:rgba(242,245,244,.58); margin-bottom:4px}
+.qrBox{
+  margin-top:12px;
+  padding:12px;
+  border-radius:16px;
+  background:rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex; align-items:center; justify-content:center;
+}
+.qrFake{
+  width:120px; height:120px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.10) 1px, transparent 1px) 0 0/10px 10px,
+    linear-gradient(rgba(255,255,255,.10) 1px, transparent 1px) 0 0/10px 10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.10);
+}
+
+/* V47: ZKEP full-screen ritual */
+.gcModal{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.62);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:20000;
+  backdrop-filter: blur(10px);
+}
+.gcModalCard{
+  width:88%;
+  max-width:360px;
+  transform: translateY(10px) scale(.98);
+  opacity:0;
+  animation: zkepIn 240ms ease-out forwards;
+}
+@keyframes zkepIn{
+  to{transform: translateY(0) scale(1); opacity:1;}
+}
+
+/* V34 tweaks */
+.scanBtn{ color:#fff !important; letter-spacing:.08em; }
+#protectStatusRow{ display:none; }
+body.protect-on #protectStatusRow{ display:flex; }
+#protectStatusRow{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:16px;
+  background: rgba(255,70,70,.12);
+  border:1px solid rgba(255,70,70,.28);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  gap:10px;
+  align-items:center;
+}
+#protectStatusRow .dot{
+  width:10px; height:10px; border-radius:50%;
+  background:#ff4d4d;
+  box-shadow:0 0 0 0 rgba(255,77,77,.7);
+  animation:pulse 1.4s infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 rgba(255,77,77,.65); }
+  70%{ box-shadow:0 0 0 12px rgba(255,77,77,0); }
+  100%{ box-shadow:0 0 0 0 rgba(255,77,77,0); }
+}
+#protectStatusRow .t{ font-weight:700; }
+#protectStatusRow .s{ opacity:.85; font-size:12px; }
+.pillBtn.active{
+  background: rgba(29,218,121,.22);
+  border-color: rgba(29,218,121,.55);
+  color: #eafff4;
+}
+#btnProtectToggle{
+  width:auto !important;
+  padding:12px 16px !important;
+  font-weight:800;
+}
+
+/* V65: ZKEP "Ritual" light (magic moment) */
+#zkepModal.ritual{
+  background: radial-gradient(80% 60% at 50% 25%, rgba(31,218,121,.22), rgba(0,0,0,.62) 60%);
+}
+#zkepModal.ritual .gcModalCard{
+  animation: zkepIn 240ms ease-out forwards, zkepGlow 1200ms ease-out forwards;
+}
+@keyframes zkepGlow{
+  0%{ box-shadow:0 24px 70px rgba(0,0,0,.62); }
+  35%{ box-shadow:0 0 0 0 rgba(31,218,121,0), 0 0 40px rgba(31,218,121,.22), 0 24px 70px rgba(0,0,0,.62); }
+  70%{ box-shadow:0 0 0 10px rgba(31,218,121,.10), 0 0 70px rgba(31,218,121,.18), 0 24px 70px rgba(0,0,0,.62); }
+  100%{ box-shadow:0 24px 70px rgba(0,0,0,.62); }
+}
+/* subtle scanning line inside certificate */
+#zkepModal.ritual .qrBox:before{
+  content:"";
+  position:absolute;
+  left:10px; right:10px;
+  height:2px;
+  top:22px;
+  background: linear-gradient(90deg, transparent, rgba(31,218,121,.95), transparent);
+  filter: drop-shadow(0 0 14px rgba(31,218,121,.65));
+  opacity:0;
+}
+#zkepModal.ritual .qrBox{ position:relative; overflow:hidden; }
+#zkepModal.ritual .qrBox:before{ opacity:1; animation: zkepSweep 1100ms linear infinite; }
+@keyframes zkepSweep{ 0%{ transform: translateY(0);} 100%{ transform: translateY(86px);} }
+
 </style>
 
 <script>
@@ -603,21 +865,215 @@
  */
 const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, projectId, ... }
 </script>
-<script src="./GolfCheck — Prototype V20 html_files/firebase-app-compat.js"></script>
-<script src="./GolfCheck — Prototype V20 html_files/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
+<style id="v67_scanshock_style">
+/* V67: Scan Shock (clipped & premium) */
+.screen{ overflow:hidden; }
+
+#scanShock{
+  position:absolute !important;
+  inset:0 !important;
+  z-index:24000 !important;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(85% 60% at 50% 22%, rgba(31,218,121,.18), rgba(0,0,0,.64) 62%);
+  backdrop-filter: blur(12px);
+}
+#scanShock.active{ display:flex; }
+#scanShock::before{content:""; position:absolute; inset:0; background:rgba(0,0,0,.18);}
+
+#scanShock .ssCard{
+  position:relative;
+  width:90%;
+  max-width:370px;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(15,23,21,.98);
+  box-shadow:0 24px 70px rgba(0,0,0,.62);
+  overflow:hidden;
+  transform: translateY(16px) scale(.98);
+  opacity:0;
+  animation:ssIn 260ms ease-out forwards;
+}
+@keyframes ssIn{to{transform:translateY(0) scale(1); opacity:1;}}
+#scanShock .ssTop{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 14px 10px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+#scanShock .ssTitle{font-weight:950; letter-spacing:-.2px; color:rgba(242,245,244,.92);}
+#scanShock .ssClose{
+  width:34px; height:34px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.25);
+  color:rgba(242,245,244,.9);
+}
+#scanShock .ssBody{padding:14px;}
+#scanShock .ssRingWrap{display:flex; justify-content:center; margin-top:6px;}
+#scanShock .ssRing{
+  width:168px; height:168px; border-radius:999px;
+  background: conic-gradient(rgba(31,218,121,.95) var(--p,0%), rgba(255,255,255,.08) 0);
+  padding:10px;
+  box-shadow:0 0 0 7px rgba(31,218,121,.06);
+}
+#scanShock .ssRingInner{
+  width:100%; height:100%; border-radius:999px;
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.10);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; text-align:center;
+}
+#scanShock .ssPct{font-size:34px; font-weight:950; letter-spacing:-1px; color:rgba(242,245,244,.92);}
+#scanShock .ssSub{margin-top:6px; font-size:12px; color:rgba(242,245,244,.70);}
+
+#scanShock .ssResult{margin-top:14px;}
+#scanShock .ssVerdict{
+  padding:12px; border-radius:18px;
+  background:rgba(31,218,121,.08);
+  border:1px solid rgba(31,218,121,.14);
+  display:flex; gap:10px; align-items:center;
+}
+#scanShock .ssDot{
+  width:12px; height:12px; border-radius:50%;
+  background:#1fda79;
+  box-shadow:0 0 0 6px rgba(31,218,121,.14);
+}
+#scanShock .ssVerdictTitle{font-weight:950; color:rgba(242,245,244,.92);}
+#scanShock .ssVerdictSub{font-size:12px; color:rgba(242,245,244,.70); margin-top:2px;}
+
+#scanShock .ssGrid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+#scanShock .ssItem{
+  padding:10px 10px; border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+}
+#scanShock .ssItem span{display:block; font-size:11px; color:rgba(242,245,244,.58); margin-bottom:4px;}
+#scanShock .ssItem b{color:rgba(242,245,244,.92);}
+
+#scanShock .ssMissingBox{
+  margin-top:12px;
+  padding:12px; border-radius:18px;
+  background:rgba(255,59,48,.08);
+  border:1px solid rgba(255,59,48,.14);
+}
+#scanShock .ssMissingTitle{font-weight:900; margin-bottom:8px; color:rgba(242,245,244,.92);}
+#scanShock .ssList{margin:0; padding-left:18px; color:rgba(242,245,244,.88); font-size:13px; line-height:1.35;}
+
+#scanShock .ssActions{display:flex; gap:10px; margin-top:14px;}
+#scanShock .ssBtn{
+  flex:1; padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.22);
+  color:rgba(242,245,244,.92);
+  font-weight:900;
+}
+#scanShock .ssBtn.primary{
+  border:1px solid rgba(31,218,121,.22);
+  background:rgba(31,218,121,.14);
+}
+#scanShock .ssNote{margin-top:10px; font-size:11px; color:rgba(242,245,244,.55);}
+</style>
+<style id="v96_zkep_modal_fullscreen">
+/* V96: ZKEP modal fullscreen inside app (and starts hidden) */
+#zkepModal{
+  display:none;
+  position:absolute; inset:0;
+  z-index:26000;
+  background: rgba(0,0,0,.65);
+  align-items:center;
+  justify-content:center;
+  padding:0;
+}
+#zkepModal.show{ display:flex; }
+#zkepModal .gcModalCard{
+  width: 92%;
+  max-width: 390px;
+  max-height: 88%;
+  border-radius: 20px;
+}
+</style>
+<style id="v97_chip_ios_fix_css">
+/* V97: Make checklist chips reliably tappable (iOS + desktop) */
+#v-checklist .chip{
+  cursor:pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+</style>
 </head>
 <body>
+<div class='gc-build'>BUILD V25</div>
+<div id='gcToast' class='gc-toast'></div>
 <div class="phone" aria-label="GolfCheck Prototype V3">
   <div class="screen">
+<div id="demoPill" style="position:absolute; right:18px; top:86px; z-index:21000; padding:8px 10px; border-radius:999px; border:1px solid rgba(31,218,121,.20); background:rgba(31,218,121,.12); color:rgba(242,245,244,.92); font-size:12px; cursor:pointer; user-select:none;"><span style="opacity:.9">DEMO OEM</span><span id="demoState" style="margin-left:8px; font-weight:900;">ON</span></div>
+<!-- V67: Scan Shock Overlay -->
+<div id="scanShock" aria-label="Scan du sac">
+  <div class="ssCard">
+    <div class="ssTop">
+      <div class="ssTitle">Scan du sac</div>
+      <button class="ssClose" id="ssClose" aria-label="Fermer">✕</button>
+    </div>
+
+    <div class="ssBody">
+      <div class="ssRingWrap">
+        <div class="ssRing" id="ssRing">
+          <div class="ssRingInner">
+            <div class="ssPct" id="ssPct">0%</div>
+            <div class="ssSub" id="ssSub">Connexion au sac…</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ssResult" id="ssResult" style="display:none">
+        <div class="ssVerdict">
+          <div class="ssDot" id="ssDot"></div>
+          <div>
+            <div class="ssVerdictTitle" id="ssVerdictTitle">Conforme</div>
+            <div class="ssVerdictSub" id="ssVerdictSub">Clubs présents</div>
+          </div>
+        </div>
+
+        <div class="ssGrid">
+          <div class="ssItem"><span>Clubs</span><b id="ssClubs">21/21</b></div>
+          <div class="ssItem"><span>Accessoires</span><b id="ssAcc">OK</b></div>
+          <div class="ssItem"><span>Manquants</span><b id="ssMissing">0</b></div>
+          <div class="ssItem"><span>Horodatage</span><b id="ssTime">—</b></div>
+        </div>
+
+        <div class="ssMissingBox" id="ssMissingBox" style="display:none">
+          <div class="ssMissingTitle">Éléments manquants</div>
+          <ul class="ssList" id="ssList"></ul>
+        </div>
+
+        <div class="ssActions">
+          <button class="ssBtn" id="ssDetails">Détails</button>
+          <button class="ssBtn primary" id="ssOk">OK</button>
+        </div>
+
+        <div class="ssNote">Un scan = vision instantanée de l’état du sac (clubs + accessoires) — démo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /V67 -->
     <div class="status">
       <div>9:41</div>
       <div class="righticons">
-        <div class="pill" style="padding:6px 10px">
+        <div class="pill" id="heroPill" style="padding:6px 10px">
           <span class="dot"></span><span id="topPill">Prêt</span>
         </div>
         <div class="pill" style="padding:6px 10px"><span>5G</span></div>
-        <div class="battery"><div class="lvl"></div></div>
+        <div class="battery"><div class="lvl"></div>
+<div class="alarmBadge" id="alarmBadge" style="display:none">
+  <span class="alarmBell" aria-label="Alarme active">🔔</span>
+  <span class="alarmDotMini"></span>
+</div></div>
       </div>
     </div>
 
@@ -635,11 +1091,111 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
       <section class="view active" id="v-dashboard">
         <div class="heroBag">
           <div class="heroLeft">
-            <div class="tag"><span class="mini"></span><span id="bagState">Non scanné</span></div>
+            <div class="tag"><span id="bagDot" class="mini dot-red"></span><span id="bagState"><span id="heroPillTxt">Non scanné</span></span></div>
             <div class="heroTitle" id="heroTitle">Prêt à scanner</div>
-            <p class="heroDesc" id="heroDesc">Preuve officielle • Checklist intelligente • Protection du matériel</p>
+            <p class="heroDesc" id="heroDesc">Scanne le sac → vérifie → protège.</p>
+            <div class="muteline" id="protectStatusRow" style="margin-top:8px; display:none">
+              <span id="protectDot" class="mini dot-red"></span>
+              <span id="protectStatusText"></span>
+            </div>
+
           </div>
         </div>
+
+        
+
+<!-- V35: GolfCheck OS (Modes + Etat du sac + Intention + Ecosystem) -->
+<div class="sectionTitle">Mode</div>
+<div class="seg" id="modeSeg">
+  <button data-mode="entrainement" class="active">Entraînement</button>
+  <button data-mode="reconnaissance">Reconnaissance</button>
+  <button data-mode="competition">Compétition</button>
+  <button data-mode="statistique">Statistiques</button>
+</div>
+
+<div class="card" id="bagOSCard">
+  <div class="row" style="align-items:flex-start">
+    <div style="flex:1">
+      <div style="font-weight:900; letter-spacing:-.2px">État du sac</div>
+      <div style="color:rgba(242,245,244,.62); font-size:12px; margin-top:4px" id="osModeLine">—</div>
+    </div>
+    <div class="state ok" id="osStatePill"><i></i><span id="osStateTxt">Prêt</span></div>
+  </div>
+
+  <div class="muteline"></div>
+
+  <div class="row" style="gap:10px; align-items:center">
+    <div style="flex:1">
+      <div style="font-weight:850" id="osScanLine">Non scanné</div>
+      <div style="color:rgba(242,245,244,.58); font-size:12px; margin-top:2px" id="osScanSub">Scanner pour vérifier clubs + accessoires</div>
+    </div>
+    <button class="btn small scanBtn" id="btnDashScan" data-go="scan" style="min-width:150px">SCANNER</button>
+  </div>
+
+  <div class="muteline"></div>
+
+  <div class="pillLine" style="margin-top:10px">
+    <div class="l">
+      <b>Intention</b>
+      <span id="intentSub">—</span>
+    </div>
+    <div class="state warn" id="intentPill"><i></i><span id="intentTxt">Non validée</span></div>
+  </div>
+
+  <div class="pillLine" id="zkepQuickRow" style="margin-top:10px; display:none">
+    <div class="l">
+      <b>ZKEP</b>
+      <span id="zkepSub">Certificat de conformité (démo)</span>
+    </div>
+    <button class="pillBtn active" id="btnZkepGenerate" tabindex="-1">Générer</button>
+  </div>
+
+  <p class="tiny" style="margin-top:10px" id="osHint">En compétition : assistance désactivée, conformité + preuve.</p>
+</div>
+
+<div class="homeCardTitle">Écosystème GolfCheck</div>
+<div class="grid3" style="margin-bottom:6px">
+  <div class="tile" data-go="scan" role="button" aria-label="Scan">
+    <div class="ico">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M7 3H5a2 2 0 0 0-2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M17 3h2a2 2 0 0 1 2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M7 21H5a2 2 0 0 1-2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M17 21h2a2 2 0 0 0 2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M8 12h8" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="lbl">Scan</div>
+  </div>
+
+  <div class="tile" data-go="secure" role="button" aria-label="Alarme temps réel">
+    <div class="ico">🔔</div>
+    <div class="lbl">Alarme</div>
+  </div>
+
+  <div class="tile" data-go="zkep" role="button" aria-label="ZKEP">
+    <div class="ico">🔒</div>
+    <div class="lbl">ZKEP</div>
+  </div>
+</div>
+
+<div class="grid3">
+  <div class="tile" data-go="checklist" role="button" aria-label="Checklist IA">
+    <div class="ico">🧠</div>
+    <div class="lbl">Checklist IA</div>
+  </div>
+
+  <div class="tile" data-go="secure" role="button" aria-label="Secure & Assurance">
+    <div class="ico">🛡️</div>
+    <div class="lbl">Secure</div>
+  </div>
+
+  <div class="tile" data-go="stats" role="button" aria-label="Statistiques">
+    <div class="ico">📊</div>
+    <div class="lbl">Stats</div>
+  </div>
+</div>
+<!-- /V35 -->
 
         <div class="btnRow">
           <button class="btn" data-go="scan" id="btnHomeScan">PRÊT À SCANNER</button>
@@ -651,6 +1207,15 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
             <div class="modTxt">
               <b>Checklist IA</b>
               <span>Dynamique • Apprend</span>
+            </div>
+            <button class="pillBtn" tabindex="-1">Ouvrir</button>
+          </div>
+
+
+          <div class="modRow" data-go="inventory" role="button" aria-label="Ouvrir Mon sac et inventaire">
+            <div class="modTxt">
+              <b>Mon sac &amp; inventaire</b>
+              <span>Sac actuel • Historique • Matériel</span>
             </div>
             <button class="pillBtn" tabindex="-1">Ouvrir</button>
           </div>
@@ -698,7 +1263,7 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
           <div class="kpis">
             <div class="kpi">
               <div class="lab">ZKEP<br><span style="font-size:12px;opacity:.7">Conformité matériel certifiée</span></div>
-              <div class="val"><span id="detCount">0</span> / 14</div>
+              <div class="val"><span id="detCount">0</span> / 21</div>
               <div class="bar"><i id="detBar" style="width:0%"></i></div>
               <div class="sub" id="detSub">Aucun scan</div>
             </div>
@@ -720,7 +1285,7 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
                 <div style="font-weight:900">État du sac</div>
                 <div style="color:rgba(242,245,244,.62); font-size:12px; margin-top:4px" id="scanResultLine">—</div>
               </div>
-              <div class="pill"><span class="dot" id="scanDot"></span><span id="scanState">Prêt à jouer</span></div>
+              <div class="pill"><span class="dot" id="scanDot"></span><span id="scanState">Prêt à jouer<br><span style="font-size:12px;opacity:.7">Dernière vérification : aujourd’hui</span></span></div>
             </div>
             <div class="list" id="scanList"></div>
           </div>
@@ -735,13 +1300,13 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
               <div style="font-weight:900">Sac complet</div>
               <p class="note">Tout au vert → validation auto.</p>
             </div>
-            <div class="bigCheck" id="bigCheck" style="opacity: 0.8; filter: none;"><div class="tick"></div></div>
+            <div class="bigCheck" id="bigCheck"><div class="tick"></div></div>
           </div>
 
           <div class="progressRow">
             <div>
-              <div class="count"><span id="doneCount">0</span>/<span id="totalCount">20</span></div>
-              <p class="note" id="progressNote">9 vitaux à vérifier</p>
+              <div class="count"><span id="doneCount">0</span> éléments</div>
+              <p class="note" id="progressNote">—</p>
             </div>
             <div style="min-width:140px">
               <div class="bar" style="height:12px"><i id="progBar" style="width:0%"></i></div>
@@ -770,293 +1335,13 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
         </div>
 
 <div class="sectionTitle">Équipement</div>
-        <div class="list" id="checkList"><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Bois 3</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="wood3">Présent</div>
-        <div class="chip off" data-act="skip" data-id="wood3">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Driver</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="driver">Présent</div>
-        <div class="chip off" data-act="skip" data-id="driver">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Fers (set)</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="ironSet">Présent</div>
-        <div class="chip off" data-act="skip" data-id="ironSet">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Hybride</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="hybrid">Présent</div>
-        <div class="chip off" data-act="skip" data-id="hybrid">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Putter</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="putter">Présent</div>
-        <div class="chip off" data-act="skip" data-id="putter">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Wedge 52°</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="wedge52">Présent</div>
-        <div class="chip off" data-act="skip" data-id="wedge52">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Wedge 56°</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="wedge56">Présent</div>
-        <div class="chip off" data-act="skip" data-id="wedge56">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Bois 5</div>
-          <div class="meta">Club</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="wood5">Présent</div>
-        <div class="chip off" data-act="skip" data-id="wood5">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Wedge 60°</div>
-          <div class="meta">Club</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="wedge60">Présent</div>
-        <div class="chip off" data-act="skip" data-id="wedge60">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Balles</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="balls">Présent</div>
-        <div class="chip off" data-act="skip" data-id="balls">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Tees</div>
-          <div class="meta">Vital</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="tees">Présent</div>
-        <div class="chip off" data-act="skip" data-id="tees">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Eau</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="water">Présent</div>
-        <div class="chip off" data-act="skip" data-id="water">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Gants</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="gloves">Présent</div>
-        <div class="chip off" data-act="skip" data-id="gloves">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Marqueur</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="marker">Présent</div>
-        <div class="chip off" data-act="skip" data-id="marker">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Relève‑pitch</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="pitch">Présent</div>
-        <div class="chip off" data-act="skip" data-id="pitch">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Serviette</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="towel">Présent</div>
-        <div class="chip off" data-act="skip" data-id="towel">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Parapluie</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="umbrella">Présent</div>
-        <div class="chip off" data-act="skip" data-id="umbrella">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Powerbank</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="power">Présent</div>
-        <div class="chip off" data-act="skip" data-id="power">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Télémètre</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="rangefinder">Présent</div>
-        <div class="chip off" data-act="skip" data-id="rangefinder">Je ne le prends pas</div>
-      </div>
-    </div><div class="item">
-      <div class="left">
-        <div class="badge miss">
-          <div class="x"></div>
-        </div>
-        <div>
-          <div class="name">Veste pluie</div>
-          <div class="meta">Option</div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="chip off" data-act="present" data-id="rain">Présent</div>
-        <div class="chip off" data-act="skip" data-id="rain">Je ne le prends pas</div>
-      </div>
-    </div></div>
+        <div class="list" id="checkList"></div>
 
         <div class="sectionTitle">Ajouter un item perso</div>
         <div class="card">
           <div style="font-weight:900; margin-bottom:8px">Item libre</div>
           <div class="addRow">
-            <input type="text" id="newItem" placeholder="Ex: Tapis putting, baguettes, corde...">
+            <input type="text" id="newItem" placeholder="Ex: Tapis putting, baguettes, corde..."/>
             <button class="miniBtn" id="btnAdd">Ajouter</button>
           </div>
           <p class="tiny">IA = base large, puis ton sac devient “ton standard”.</p>
@@ -1064,7 +1349,7 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
       </section>
 
       <section class="view" id="v-modes">
-        <div class="sectionTitle">Modes</div>
+        <div class="sectionTitle">Secure</div>
 
         <div class="modeCard">
           <div class="mode active" data-mode="entrainement">
@@ -1107,7 +1392,7 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
           <div class="row">
             <div>
               <div style="font-weight:900">Vue Pro</div>
-              <p class="note">KPIs + Strokes Gained. Source : scans &amp; cartes de score.</p>
+              <p class="note">KPIs + Strokes Gained. Source : scans & cartes de score.</p>
             </div>
             <div class="pill ok">Saison</div>
           </div>
@@ -1132,17 +1417,142 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
 
           <div class="chartCard">
             <div class="chartTitle">Tendance (7 dernières parties)</div>
-            <div class="spark" id="sparkLine" aria-label="sparkline"><div class="bar" style="height: 18.8px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 29.8px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 25.4px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 34.2px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 37.28px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 32px; background: rgba(255, 255, 255, 0.18);"></div><div class="bar" style="height: 41.68px; background: rgba(31, 218, 121, 0.85);"></div></div>
+            <div class="spark" id="sparkLine" aria-label="sparkline"></div>
           </div>
 
           <div class="chartCard">
             <div class="chartTitle">Dispersion</div>
-            <div class="gridDots" id="dispDots" aria-label="dispersion"><div class="dot" style="left: 88.1533%; top: 13.2928%; opacity: 0.799444;"></div><div class="dot" style="left: 11.6012%; top: 21.8323%; opacity: 0.611839;"></div><div class="dot" style="left: 46.8869%; top: 75.4147%; opacity: 0.901283;"></div><div class="dot" style="left: 26.1885%; top: 82.3981%; opacity: 0.567937;"></div><div class="dot" style="left: 63.3464%; top: 68.7238%; opacity: 0.420833;"></div><div class="dot" style="left: 75.4595%; top: 77.3613%; opacity: 0.351943;"></div><div class="dot" style="left: 41.8968%; top: 28.3389%; opacity: 0.6109;"></div><div class="dot" style="left: 15.222%; top: 55.6841%; opacity: 0.924704;"></div><div class="dot" style="left: 18.2374%; top: 62.0178%; opacity: 0.677831;"></div><div class="dot" style="left: 50.6225%; top: 34.183%; opacity: 0.839562;"></div><div class="dot" style="left: 47.0459%; top: 63.6389%; opacity: 0.711642;"></div><div class="dot" style="left: 66.0131%; top: 73.9467%; opacity: 0.784356;"></div><div class="dot" style="left: 48.7067%; top: 34.2996%; opacity: 0.553237;"></div><div class="dot" style="left: 63.2877%; top: 78.5473%; opacity: 0.944717;"></div></div>
+            <div class="gridDots" id="dispDots" aria-label="dispersion"></div>
           </div>
 
           <p class="tiny">Les valeurs sont des exemples de démo. Dans la version OEM, elles proviennent de la carte de score + télémétrie.</p>
         </div>
       </section>
+      <section class="view" id="v-inventory">
+        <div class="sectionTitle">Mon sac &amp; inventaire</div>
+
+        <div class="card">
+          <div class="row">
+            <div>
+              <div style="font-weight:900">Sac actuel</div>
+              <p class="note">Instantané issu du dernier scan + checklist (prototype).</p>
+            </div>
+          </div>
+
+          <div class="muteline"></div>
+
+          <div class="row">
+            <div style="flex:1">
+              <div class="label">État</div>
+              <div class="pillLine">
+                <div class="l">
+                  <b id="invStatus">Conforme (démo)</b>
+                  <span id="invSub">21/21 éléments enregistrés • 14/14 clubs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:8px">
+            <div style="flex:1">
+              <div class="label">Dernier scan</div>
+              <p class="note" id="invLastScan">Exemple : 12/05/2026 – 08:42</p>
+            </div>
+            <div style="flex:1">
+              <div class="label">Valeur estimée</div>
+              <p class="note" id="invValue">Exemple : 3 950 € (démo)</p>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:10px; gap:10px">
+            <button class="btn secondary small" data-go="scan">Relancer un scan</button>
+            <button class="btn small" data-go="zkep">Générer le certificat ZKEP</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div>
+              <div style="font-weight:900">Historique des sacs</div>
+              <p class="note">Vue chronologique des états du sac (prototype, valeurs de démo).</p>
+            </div>
+          </div>
+
+          <div class="muteline"></div>
+
+          <div class="list">
+            <div class="row" style="justify-content:space-between">
+              <div>
+                <b>12/05/2026</b>
+                <p class="tiny">21/21 • Conforme • ZKEP généré</p>
+              </div>
+              <div class="pill">Sac prêt</div>
+            </div>
+            <div class="row" style="justify-content:space-between">
+              <div>
+                <b>28/03/2026</b>
+                <p class="tiny">19/21 • 2 éléments à vérifier • ZKEP non généré</p>
+              </div>
+              <div class="pill warn">À vérifier</div>
+            </div>
+            <div class="row" style="justify-content:space-between">
+              <div>
+                <b>10/01/2026</b>
+                <p class="tiny">14/21 • Scan partiel (démo)</p>
+              </div>
+              <div class="pill warn">Incomplet</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div>
+              <div style="font-weight:900">Inventaire matériel</div>
+              <p class="note">Exemple de sac complet. En version OEM : chaque ligne = fiche matériel + facture + assurance.</p>
+            </div>
+          </div>
+
+          <div class="muteline"></div>
+
+          <div class="scoreTable">
+            <div class="scoreRow head">
+              <div>Élément</div><div>Détail</div><div>Statut</div>
+            </div>
+            <div class="scoreRow">
+              <div>Driver</div><div>Titleist TSR3 9° (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Bois 3</div><div>TaylorMade Qi10 (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Hybride</div><div>Callaway Apex 3H (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Fers 4–PW</div><div>Set 7 pièces (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Wedges</div><div>52° • 56° • 60° (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Putter</div><div>Scotty Cameron Phantom (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Sac</div><div>Hybrid 14 poches (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Laser / GPS</div><div>Bushnell Tour V6 (démo)</div><div>Présent</div>
+            </div>
+            <div class="scoreRow">
+              <div>Balles</div><div>Pro V1 (12) (démo)</div><div>OK</div>
+            </div>
+          </div>
+
+          <p class="tiny" style="margin-top:8px">Prototype : les lignes sont statiques. Dans une version industrielle, elles seraient alimentées automatiquement par le Scan + ajout manuel + facture/photo.</p>
+        </div>
+      </section>
+
+
 
       <section class="view" id="v-scorecard">
         <div class="sectionTitle">Carte de score</div>
@@ -1160,7 +1570,26 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
             <div class="scoreRow head">
               <div>Trou</div><div>Par</div><div>Score</div>
             </div>
-            <div id="scoreRows"><div class="scoreRow"><div>1</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="0"></div></div><div class="scoreRow"><div>2</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="1"></div></div><div class="scoreRow"><div>3</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="2"></div></div><div class="scoreRow"><div>4</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="3"></div></div><div class="scoreRow"><div>5</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="4"></div></div><div class="scoreRow"><div>6</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="5"></div></div><div class="scoreRow"><div>7</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="6"></div></div><div class="scoreRow"><div>8</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="7"></div></div><div class="scoreRow"><div>9</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="8"></div></div><div class="scoreRow"><div>10</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="9"></div></div><div class="scoreRow"><div>11</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="10"></div></div><div class="scoreRow"><div>12</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="11"></div></div><div class="scoreRow"><div>13</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="12"></div></div><div class="scoreRow"><div>14</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="13"></div></div><div class="scoreRow"><div>15</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="14"></div></div><div class="scoreRow"><div>16</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="15"></div></div><div class="scoreRow"><div>17</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="16"></div></div><div class="scoreRow"><div>18</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="17"></div></div></div>
+            <div id="scoreRows">
+            <div class="scoreRow"><div>1</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="0"/></div></div>
+            <div class="scoreRow"><div>2</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="1"/></div></div>
+            <div class="scoreRow"><div>3</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="2"/></div></div>
+            <div class="scoreRow"><div>4</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="3"/></div></div>
+            <div class="scoreRow"><div>5</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="4"/></div></div>
+            <div class="scoreRow"><div>6</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="5"/></div></div>
+            <div class="scoreRow"><div>7</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="6"/></div></div>
+            <div class="scoreRow"><div>8</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="7"/></div></div>
+            <div class="scoreRow"><div>9</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="8"/></div></div>
+            <div class="scoreRow"><div>10</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="9"/></div></div>
+            <div class="scoreRow"><div>11</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="10"/></div></div>
+            <div class="scoreRow"><div>12</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="11"/></div></div>
+            <div class="scoreRow"><div>13</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="12"/></div></div>
+            <div class="scoreRow"><div>14</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="13"/></div></div>
+            <div class="scoreRow"><div>15</div><div>3</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="14"/></div></div>
+            <div class="scoreRow"><div>16</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="15"/></div></div>
+            <div class="scoreRow"><div>17</div><div>5</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="16"/></div></div>
+            <div class="scoreRow"><div>18</div><div>4</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="17"/></div></div>
+            </div>
             <div class="muteline"></div>
             <div class="scoreRow total">
               <div>Total</div><div id="parTotal">72</div><div id="scoreTotal">—</div>
@@ -1213,12 +1642,57 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
             <button class="btn" id="btnZkToScan">Scanner</button>
           </div>
         </div>
-      </section>
+      
+<!-- V46: Always-available demo certificate action -->
+<div class="card" style="margin-top:10px">
+  <div class="row" style="align-items:center; gap:10px">
+    <div style="flex:1">
+      <div style="font-weight:900">Certificat matériel ZKEP</div>
+      <div style="color:rgba(242,245,244,.58); font-size:12px; margin-top:2px">Générer une preuve vérifiable (démo) — horodatée</div>
+    </div>
+    <button class="btn small" id="btnZkepGenerateAlways">GÉNÉRER</button>
+  </div>
+</div>
+<!-- /V46 -->
+</section>
 
       <section class="view" id="v-secure">
         <div class="sectionTitle">Secure</div>
+
         <div class="card">
-          <div style="font-weight:900; font-size:16px">Assurance &amp; valeur</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px">
+            <div>
+              <div style="font-weight:900; font-size:16px">Protection active</div>
+              <p class="note" style="margin-top:6px">Surveillance du sac et du matériel (démo).</p>
+            </div>
+            <div class="state ok" id="protectPill"><i></i><span>Sonore</span></div>
+          </div>
+
+          <div class="miniList" style="margin-top:10px">
+            <div class="pillLine">
+              <div class="l"><b>Statut</b><span id="protectLine">Surveillance active</span></div>
+              <div class="state ok" id="protectState"><i></i><span>ON</span></div>
+            </div>
+            <div class="pillLine">
+              <div class="l"><b>Mode</b><span>Sonore par défaut</span></div>
+              <div style="display:flex; gap:8px">
+                <button class="pillBtn" id="btnModeSound" tabindex="-1">Sonore</button>
+                <button class="pillBtn" id="btnModeSilent" tabindex="-1">Silencieux</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="btnRow" style="margin-top:10px"><button class="btn primary" id="btnProtectToggle">Activer</button></div>
+
+          <div class="muteline" style="margin-top:10px">
+            <span class="mini">🔔</span>
+            <span>Alerte si un club sort du sac (démo).</span>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div style="font-weight:900; font-size:16px">Assurance & valeur</div>
           <p class="note" style="margin-top:6px">
             Pour factures, valeur du sac, photos, preuves (démo).
           </p>
@@ -1252,7 +1726,7 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
       <div class="tab active" data-go="dashboard">
         <div class="ticon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M4 12l8-8 8 8v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M4 12l8-8 8 8v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linejoin="round"/>
           </svg>
         </div>
         <div>Dashboard</div>
@@ -1260,11 +1734,11 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
       <div class="tab" data-go="scan">
         <div class="ticon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M7 3H5a2 2 0 0 0-2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M17 3h2a2 2 0 0 1 2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M7 21H5a2 2 0 0 1-2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M17 21h2a2 2 0 0 0 2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M8 12h8" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M7 3H5a2 2 0 0 0-2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M17 3h2a2 2 0 0 1 2 2v2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 21H5a2 2 0 0 1-2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M17 21h2a2 2 0 0 0 2-2v-2" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 12h8" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
         <div>Scan</div>
@@ -1272,20 +1746,20 @@ const FIREBASE_CONFIG = null; // optionnel : { apiKey, authDomain, databaseURL, 
       <div class="tab" data-go="checklist">
         <div class="ticon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M9 11l2 2 4-5" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M7 4h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="rgba(242,245,244,.85)" stroke-width="2"></path>
+            <path d="M9 11l2 2 4-5" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 4h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="rgba(242,245,244,.85)" stroke-width="2"/>
           </svg>
         </div>
         <div>Checklist</div>
       </div>
-      <div class="tab" data-go="modes">
+      <div class="tab" data-go="secure">
         <div class="ticon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3v18" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M3 12h18" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M12 3v18" stroke="rgba(242,245,244,.85)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M3 12h18" stroke="rgba(31,218,121,.95)" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <div>Modes</div>
+        <div>Secure</div>
       </div>
     </div>
 
@@ -1339,6 +1813,9 @@ let state = {
   lastScan: null,
 };
 
+// V104: exposer l'état global pour ZKEP / Scan
+window.state = state;
+
 BASE_LIBRARY.forEach(x=> state.personal.set(x.id, {present:false, skipped:false}));
 state.personal.set("scorecard", {present:false, skipped:false});
 
@@ -1351,6 +1828,7 @@ const views = {
   secure: document.getElementById("v-secure"),
   stats: document.getElementById("v-stats"),
   scorecard: document.getElementById("v-scorecard"),
+  inventory: document.getElementById("v-inventory"),
 };
 
 function go(name){
@@ -1363,10 +1841,17 @@ function go(name){
                modes:"Modes • Entraînement • Compétition • Statistiques",
                zkep:"ZKEP • Conformité matériel",
                secure:"Secure • Assurance & valeur",
+               inventory:"Mon sac • Inventaire & historique",
                stats:"Statistiques • KPIs • Strokes Gained",
                scorecard:"Carte de score • 18 trous • Import"};
   sub.textContent = map[name] || "GolfCheck";
   document.getElementById("content").scrollTop = 0;
+
+  // V118 : s'assurer que la carte de score est bien construite quand on y arrive
+  if(name === "scorecard" && typeof buildScoreRows === "function"){
+    try{ buildScoreRows(); }catch(e){}
+  }
+
   refreshUI();
 }
 
@@ -1395,6 +1880,152 @@ function setMode(m){
   }
   state.mode = m;
   refreshUI();
+}
+
+/* V35: Mode switch on Dashboard + OS Card */
+const modeSeg = document.getElementById("modeSeg");
+if(modeSeg){
+  modeSeg.querySelectorAll("button[data-mode]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      setMode(b.dataset.mode);
+      go("dashboard");
+    });
+  });
+}
+const osModeLine = document.getElementById("osModeLine");
+const osStatePill = document.getElementById("osStatePill");
+const osStateTxt = document.getElementById("osStateTxt");
+const osScanLine = document.getElementById("osScanLine");
+const osScanSub = document.getElementById("osScanSub");
+const intentPill = document.getElementById("intentPill");
+const intentTxt = document.getElementById("intentTxt");
+const intentSub = document.getElementById("intentSub");
+const zkepQuickRow = document.getElementById("zkepQuickRow");
+const btnZkepGenerate = document.getElementById("btnZkepGenerate");
+const osHint = document.getElementById("osHint");
+const alarmBadge = document.getElementById("alarmBadge");
+
+function modeLabel(m){
+  return ({entrainement:"Entraînement", reconnaissance:"Reconnaissance", competition:"Compétition", statistique:"Statistiques"})[m] || m;
+}
+function computeDivergence(){
+  if(!state.lastScan) return {div:0, missingCritical:0, clubs:0};
+
+  // V117 : si le sac est scanné complet (aucun manquant), on force l'absence d'anomalie
+  if(state.lastScan.missingIds && state.lastScan.missingIds.size === 0){
+    return {div:0, missingCritical:0, clubs: state.lastScan.clubsDetected || 0};
+  }
+
+  const detected = state.lastScan.detectedIds;
+  let div = 0;
+  let missingCritical = 0;
+  BASE_LIBRARY.forEach(it=>{
+    const v = state.personal.get(it.id);
+    if(!v) return;
+    if(v.present && !detected.has(it.id)){
+      div += 1;
+      if(it.vital) missingCritical += 1;
+    }
+  });
+  return {div, missingCritical, clubs: state.lastScan.clubsDetected || 0};
+}
+function updateDashboardOS(){
+  if(!osModeLine) return;
+  // Mode line + hint
+  if(state.mode==="competition"){
+    osModeLine.textContent = `MODE ACTIF : ${modeLabel(state.mode).toUpperCase()} • IA apprend (aucune assistance)`;
+    if(osHint) osHint.textContent = "En compétition : aucune assistance. IA apprend en arrière-plan (conformité + preuve ZKEP).";
+  } else if(state.mode==="reconnaissance"){
+    osModeLine.textContent = `MODE ACTIF : ${modeLabel(state.mode).toUpperCase()} • IA apprend (préparation)`;
+    if(osHint) osHint.textContent = "En reconnaissance : IA apprend et prépare (checklist contextuelle).";
+  } else if(state.mode==="statistique"){
+    osModeLine.textContent = `MODE ACTIF : ${modeLabel(state.mode).toUpperCase()} • IA apprend (analyse post-parcours)`;
+    if(osHint) osHint.textContent = "En statistiques : IA apprend via l’analyse post-parcours.";
+  } else {
+    osModeLine.textContent = `MODE ACTIF : ${modeLabel(state.mode).toUpperCase()} • IA apprend & assiste`;
+    if(osHint) osHint.textContent = "En entraînement : IA apprend et assiste activement.";
+  }
+
+  if(modeSeg){
+    modeSeg.querySelectorAll("button").forEach(b=> b.classList.toggle("active", b.dataset.mode===state.mode));
+  }
+
+  const scanned = !!state.lastScan;
+
+// V40: Update hero pill status for instant understanding
+const heroPill = document.getElementById("heroPill");
+const heroPillTxt = document.getElementById("heroPillTxt");
+if(heroPill && heroPillTxt){
+  if(!scanned){
+    heroPillTxt.textContent = "Non scanné";
+    heroPill.style.opacity = "1";
+  } else {
+    if(osStateTxt && osStateTxt.textContent==="Anomalie"){
+      heroPillTxt.textContent = "Anomalie";
+    } else if(osStateTxt && osStateTxt.textContent==="À vérifier"){
+      heroPillTxt.textContent = "À vérifier";
+    } else {
+      heroPillTxt.textContent = "Scanné";
+    }
+  }
+}
+  const {div, missingCritical, clubs} = computeDivergence();
+
+  if(!scanned){
+    osScanLine.textContent = "Non scanné";
+    osScanSub.textContent = "Scanner pour vérifier clubs + accessoires";
+    if(osStatePill){ osStatePill.className = "state warn"; }
+    if(osStateTxt){ osStateTxt.textContent = "À vérifier"; }
+  } else {
+    const missing = state.lastScan.missingIds.size;
+    const detectedCount = state.lastScan.detectedIds.size;
+    const clubsTxt = `${Math.min(21, clubs)}/21 éléments`;
+    if(missingCritical>0 || clubs < 21){
+      osScanLine.textContent = `⚠️ Anomalie détectée`;
+      osScanSub.textContent = `${clubsTxt} • Manquants: ${missing} • Divergence: ${div}`;
+      if(osStatePill){ osStatePill.className = "state bad"; }
+      if(osStateTxt){ osStateTxt.textContent = "Anomalie"; }
+    } else if(missing>0){
+      osScanLine.textContent = `🟠 Sac scanné`;
+      osScanSub.textContent = `${clubsTxt} • Manquants: ${missing} • Détectés: ${detectedCount}`;
+      if(osStatePill){ osStatePill.className = "state warn"; }
+      if(osStateTxt){ osStateTxt.textContent = "À vérifier"; }
+    } else {
+      osScanLine.textContent = `✅ Sac conforme`;
+      osScanSub.textContent = `${clubsTxt} • Détectés: ${detectedCount}`;
+      if(osStatePill){ osStatePill.className = "state ok"; }
+      if(osStateTxt){ osStateTxt.textContent = "OK"; }
+    }
+  }
+
+  if(state.validated){
+    if(intentPill) intentPill.className = (div>0 ? "state bad" : "state ok");
+    if(intentTxt) intentTxt.textContent = (div>0 ? "Divergence" : "Validée");
+    if(intentSub) intentSub.textContent = (div>0 ? `Oubli involontaire probable • ${div} écart(s)` : "Aucun oubli involontaire détecté");
+  } else {
+    if(intentPill) intentPill.className = "state warn";
+    if(intentTxt) intentTxt.textContent = "Non validée";
+    if(intentSub) intentSub.textContent = "Valide la checklist → intention confirmée";
+  }
+
+
+// Alarm / Protection indicator (from Secure)
+try{
+  const p = (typeof getProtect === "function") ? getProtect() : null;
+  const armed = !!(p && p.active);
+  if(alarmBadge) alarmBadge.style.display = armed ? "block" : "none";
+}catch(e){
+  if(alarmBadge) alarmBadge.style.display = "none";
+}
+
+  const showZkep = (state.mode==="competition" && scanned && state.validated);
+  if(zkepQuickRow) zkepQuickRow.style.display = showZkep ? "flex" : "none";
+}
+if(btnZkepGenerate){
+  btnZkepGenerate.addEventListener("click", ()=>{
+    flash("Certificat ZKEP généré (démo) • Horodaté • Vérifiable.");
+    go("zkep");
+  });
 }
 
 const scanBox = document.getElementById("scanBox");
@@ -1567,13 +2198,21 @@ document.getElementById("btnAdd").addEventListener("click", ()=>{
   refreshUI();
 });
 
+
 function computeProgress(){
   const items = getChecklistItems();
   const total = items.length;
   const done = items.filter(x=>x.present || x.skipped).length;
   const missingVitals = items.filter(x=>x.vital && !x.present && !x.skipped);
-  return {done,total,missingVitals};
+
+  // V107 : distinguer clairement les 14 clubs (socle) du reste
+  const clubItems = items.filter(x=>x.type==="club");
+  const clubsTotal = clubItems.length;
+  const clubsDone = clubItems.filter(x=>x.present || x.skipped).length;
+
+  return {done,total,missingVitals,clubsDone,clubsTotal};
 }
+
 
 
 function getChecklistItems(){
@@ -1648,11 +2287,13 @@ function renderChecklist(){
     });
   });
 
-  const {done,total,missingVitals} = computeProgress();
+
+  const {done,total,missingVitals,clubsDone,clubsTotal} = computeProgress();
+  // V112 : la checklist affiche la progression sur l'ensemble des 21 éléments
   doneCount.textContent = done;
   totalCount.textContent = total;
   progBar.style.width = `${Math.round((done/Math.max(1,total))*100)}%`;
-  progressNote.textContent = missingVitals.length ? `${missingVitals.length} vitaux à vérifier` : "OK";
+  progressNote.textContent = missingVitals.length ? `${missingVitals.length} élément(s) à vérifier` : "OK";
 
   const big = document.getElementById("bigCheck");
   if(done===total){ big.style.opacity = 1; big.style.filter = "drop-shadow(0 0 18px rgba(31,218,121,.25))"; }
@@ -1682,12 +2323,20 @@ document.getElementById("btnZkBack").addEventListener("click", ()=> go("dashboar
 document.getElementById("btnZkToScan").addEventListener("click", ()=> go("scan"));
 
 function refreshUI(){
+  updateDashboardOS();
+
   const modeMap = {entrainement:"Entraînement", reconnaissance:"Reconnaissance", competition:"Compétition", statistique:"Statistique"};
   document.getElementById("modeLine").textContent = modeMap[state.mode] || "Entraînement";
-  document.getElementById("topPill").textContent = state.lastScan ? "Sac scanné" : "Prêt";
-  document.getElementById("bagState").textContent = state.lastScan ? "Sac identifié" : "Non scanné";
-  document.getElementById("heroTitle").textContent = state.lastScan ? "Dernier scan enregistré" : "Prêt à scanner";
-  document.getElementById("heroDesc").textContent = state.lastScan ? "Importer le scan dans la checklist." : "Preuve officielle • Checklist intelligente • Protection du matériel";
+  const hasScan = !!state.lastScan || !!state.validated;
+  document.getElementById("topPill").textContent = hasScan ? "Sac scanné" : "Prêt";
+  document.getElementById("bagState").textContent = hasScan ? "Scanné" : "Non scanné";
+  const bagDot = document.getElementById("bagDot");
+  if(bagDot){
+    bagDot.classList.toggle("dot-green", hasScan);
+    bagDot.classList.toggle("dot-red", !hasScan);
+  }
+  document.getElementById("heroTitle").textContent = hasScan ? "Dernier scan enregistré" : "Prêt à scanner";
+  document.getElementById("heroDesc").textContent = hasScan ? "Importer le scan dans la checklist." : "Preuve officielle • Checklist intelligente • Protection du matériel";
 
   document.querySelectorAll(".mode").forEach(x=> x.classList.toggle("active", x.dataset.mode===state.mode));
 
@@ -1738,64 +2387,7 @@ document.addEventListener("keydown",(e)=>{ if(e.key==="Escape"){ modesModal.clas
 refreshUI();
 
 // --- Scorecard (V17) ---
-const defaultPar = [4,4,3,4,5,4,3,4,5, 4,3,5,4,4,3,4,5,4];
-function buildScoreRows(){
-  const wrap = document.getElementById("scoreRows");
-  if(!wrap) return;
-  wrap.innerHTML = "";
-  defaultPar.forEach((par,i)=>{
-    const row = document.createElement("div");
-    row.className = "scoreRow";
-    row.innerHTML = `<div>${i+1}</div><div>${par}</div><div><input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-hole="${i}"/></div>`;
-    wrap.appendChild(row);
-  });
-  document.getElementById("parTotal").textContent = String(defaultPar.reduce((a,b)=>a+b,0));
-}
-buildScoreRows();
-
-function calcScoreTotal(){
-  const inputs = document.querySelectorAll('#scoreRows input');
-  let total = 0, any=false;
-  inputs.forEach(inp=>{
-    const v = parseInt(inp.value||"",10);
-    if(!isNaN(v)){ total += v; any=true; }
-  });
-  document.getElementById("scoreTotal").textContent = any ? String(total) : "—";
-}
-
-document.addEventListener("input",(e)=>{
-  if(e.target && e.target.matches('#scoreRows input')) calcScoreTotal();
-});
-
-const btnScoreAuto = document.getElementById("btnScoreAuto");
-const btnScoreSave = document.getElementById("btnScoreSave");
-const scoreMsg = document.getElementById("scoreMsg");
-
-if(btnScoreAuto){
-  btnScoreAuto.addEventListener("click", ()=>{
-    document.querySelectorAll('#scoreRows input').forEach((inp,idx)=>{
-      const par = defaultPar[idx];
-      // simple demo distribution around par
-      const val = Math.max(2, Math.min(9, par + (Math.random()<0.6?0:(Math.random()<0.5?1:-1))));
-      inp.value = String(val);
-    });
-    calcScoreTotal();
-    scoreMsg.textContent = "Carte auto-remplie (démo).";
-  });
-}
-if(btnScoreSave){
-  btnScoreSave.addEventListener("click", ()=>{
-    const scores = [];
-    document.querySelectorAll('#scoreRows input').forEach((inp,idx)=>{
-      scores[idx] = parseInt(inp.value||"",10) || null;
-    });
-    state.scorecard = {par: defaultPar, scores, savedAt: Date.now()};
-    scoreMsg.textContent = "Enregistré. Les stats se mettent à jour.";
-    refreshUI();
-    go("stats");
-  });
-}
-
+// scorecard JS (auto-calc) désactivé pour proto statique.
 // --- Stats widgets (V17) ---
 function renderSpark(){
   const el = document.getElementById("sparkLine");
@@ -1829,9 +2421,111 @@ function renderDispersion(){
 renderSpark();
 renderDispersion();
 
-</script>
 
-<div id="roomModal" style="position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.55);padding:18px;z-index:9999">
+// V105: exposer une synchro Scan -> Checklist pour que le scan puisse pousser ses résultats
+
+window.syncChecklistFromScan = function(){
+  try{
+    if(!window.state || !state.lastScan) return;
+    const last = state.lastScan;
+
+    // On ne synchronise que les clubs (la base matérielle certifiable)
+    let clubIds = [];
+    if(typeof BASE_LIBRARY !== "undefined"){
+      clubIds = BASE_LIBRARY.filter(x=>x.type==="club").map(x=>x.id);
+    }
+
+    // Récupérer les ids détectés / manquants depuis le dernier scan
+    let detectedIds = null;
+    if(last.detectedIds && typeof last.detectedIds.has === "function"){
+      detectedIds = last.detectedIds;
+    }else{
+      // Fallback si jamais les Sets n'ont pas été conservés
+      const detectedCount = Math.max(0, Math.min(last.clubsDetected || 0, clubIds.length));
+      detectedIds = new Set(clubIds.slice(0, detectedCount));
+    }
+
+    clubIds.forEach(id=>{
+      const rec = state.personal.get(id) || {present:false, skipped:false};
+      rec.present = detectedIds.has(id);
+      if(rec.present) rec.skipped = false;
+      state.personal.set(id, rec);
+    });
+
+    state.validated = false;
+    if(typeof renderChecklist === "function") renderChecklist();
+    if(typeof refreshUI === "function") refreshUI();
+  }catch(e){}
+};
+
+
+
+// V113b: override renderScan pour se caler sur la checklist (21 items)
+function renderScan(s){
+  try{
+    // On lit la progression globale de la checklist si dispo
+    let total = 21;
+    let done = (s && typeof s.clubsDetected === "number") ? s.clubsDetected : 0;
+    if (typeof computeProgress === "function") {
+      const prog = computeProgress();
+      if (prog && typeof prog.total === "number") total = prog.total;
+      if (prog && typeof prog.done === "number") done = prog.done;
+    }
+
+    const detCountEl = document.getElementById("detCount");
+    const detBarEl = document.getElementById("detBar");
+    const detSubEl = document.getElementById("detSub");
+    if(detCountEl) detCountEl.textContent = Math.min(total, done);
+    if(detBarEl) detBarEl.style.width = `${Math.min(100, (done/Math.max(1,total))*100)}%`;
+    if(detSubEl) detSubEl.textContent = `Checklist liée au scan`;
+
+    if(typeof getChecklistItems !== "function" || !scanList) return;
+
+    const items = getChecklistItems();
+    scanList.innerHTML = "";
+
+    items.forEach(it=>{
+      const el = document.createElement("div");
+      el.className = "item";
+      const ok = !!it.present || !!(state.lastScan && state.lastScan.detectedIds && state.lastScan.detectedIds.has(it.id));
+      const meta = it.vital ? "Vital" : (it.type==="club" ? "Club" : (it.type==="custom" ? "Perso" : "Option"));
+      el.innerHTML = `
+        <div class="left">
+          <div class="badge ${ok ? "ok":"miss"}">
+            ${ok ? `<div class="tick"></div>` : `<div class="x"></div>`}
+          </div>
+          <div>
+            <div class="name">${escapeHtml(it.name)}</div>
+            <div class="meta">${meta}</div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="chip ${ok?"on":"off"}">${ok?"OK":"Manque"}</div>
+        </div>
+      `;
+      scanList.appendChild(el);
+    });
+
+    const zkClubEl = document.getElementById("zkClub");
+    const st = document.getElementById("zkClubState");
+    if(zkClubEl) zkClubEl.textContent = done;
+    if(st){
+      if(done >= total){
+        st.className="state ok";
+        st.innerHTML='<i></i><span>OK</span>';
+      }else if(done >= Math.round(total*0.8)){
+        st.className="state warn";
+        st.innerHTML='<i></i><span>À vérifier</span>';
+      }else{
+        st.className="state bad";
+        st.innerHTML='<i></i><span>Incomplet</span>';
+      }
+    }
+  }catch(e){}
+}
+
+
+</script><div id="roomModal" style="position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.55);padding:18px;z-index:9999">
   <div style="width:min(420px,100%);background:#0b1412;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px 14px 18px">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <div style="font-weight:900">Salon GolfCheck</div>
@@ -1839,16 +2533,729 @@ renderDispersion();
     </div>
     <div style="margin-top:8px;font-size:12px;opacity:.75">
       Même code sur 2 téléphones → événements partagés (Scan, Score, ZKEP).
-      <br>Pour le multi‑device réel, ajoute ensuite une config Firebase (optionnel).
+      <br/>Pour le multi‑device réel, ajoute ensuite une config Firebase (optionnel).
     </div>
     <div style="margin-top:12px;display:flex;gap:10px">
-      <input id="roomInput" placeholder="Ex: MAJOR2026" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:white;border-radius:12px;padding:12px 12px;font-weight:800;text-transform:uppercase">
+      <input id="roomInput" placeholder="Ex: MAJOR2026" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:white;border-radius:12px;padding:12px 12px;font-weight:800;text-transform:uppercase" />
       <button id="roomSave" style="background:var(--green);color:#04210f;border:none;border-radius:12px;padding:12px 14px;font-weight:900">OK</button>
     </div>
   </div>
 </div>
 
 
+<script>
+(function(){
+  const toast=document.getElementById('gcToast');
+  let t;
+  function show(msg){
+    if(!toast) return;
+    toast.textContent=msg;
+    toast.classList.add('show');
+    clearTimeout(t);
+    t=setTimeout(()=>toast.classList.remove('show'),900);
+  }
+  document.addEventListener('click',(e)=>{
+    const el=e.target.closest('button,a,[role="button"],.tile,.card,.nav-item,.tab,.footer span');
+    if(!el) return;
+    const txt=(el.getAttribute('aria-label')||el.getAttribute('data-label')||el.textContent||'').trim();
+    const clean=(txt||'Action').replace(/\s+/g,' ').slice(0,40);
+    show(clean);
+  },true);
+
+  let last=0,count=0;
+  document.addEventListener('touchend',(e)=>{
+    const tapZone=e.target.closest('header,.header,.topbar,.app-header,.title,h1');
+    if(!tapZone) return;
+    const now=Date.now();
+    if(now-last<450) count++; else count=1;
+    last=now;
+    if(count>=3){ show('BUILD V25 OK'); count=0; }
+  },{passive:true});
+})();
+</script>
+
+<!-- V44: ZKEP Certificate Modal (inside app) -->
+<div class="modal" id="zkepModal" style="display:none" role="dialog" aria-label="Certificat ZKEP">
+  <div class="gcModalCard">
+    <div class="gcModalHeader">
+      <div class="mhLeft">
+        <div class="sealMini">ZKEP</div>
+        <div class="mhTxt">
+          <div class="mhTitle">Certificat matériel</div>
+          <div class="mhSub">Vérifiable • Horodaté</div>
+        </div>
+      </div>
+      <button class="iconBtn" id="btnCloseZkep" aria-label="Fermer">✕</button>
+    </div>
+
+    <div class="gcModalBody">
+      <div class="zkepToken" id="zkepToken">GC-ZKEP-000000</div>
+      <div class="zkepGrid">
+        <div class="zkepItem"><span>Statut</span><b id="zkepStatus">Conforme</b></div>
+        <div class="zkepItem"><span>Mode</span><b id="zkepMode">Compétition</b></div>
+        <div class="zkepItem"><span>Clubs</span><b id="zkepClubs">14/14</b></div>
+        <div class="zkepItem"><span>Heure</span><b id="zkepTime">—</b></div>
+      </div>
+
+      <div class="qrBox" aria-label="QR Code (démo)">
+        <div class="qrFake"></div>
+      </div>
+
+      <div class="row" style="gap:10px; margin-top:14px">
+        <button class="pillBtn" id="btnZkepDetails">Détails</button>
+        <button class="pillBtn active" id="btnZkepOk">OK</button>
+      </div>
+
+      <p class="tiny" style="margin-top:10px">Premier certificat matériel ZKEP (démo) — destiné aux contrôles officiels.</p>
+    </div>
+  </div>
+</div>
+<script>
+/* V44: Magic Scan + ZKEP (safe script block) */
+(function(){
+  const card = document.getElementById("bagOSCard");
+  const dashScanBtn = document.getElementById("btnDashScan");
+  if(dashScanBtn){
+    dashScanBtn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      if(card){
+        card.classList.add("scanPulse");
+        setTimeout(()=>card.classList.remove("scanPulse"), 900);
+      }
+      // go to scan view after a short beat (keeps the "choc" feeling)
+      setTimeout(()=>{ if(typeof go==="function") go("scan"); }, 220);
+    }, true);
+  }
+
+  const modal = document.getElementById("zkepModal");
+  const btnClose = document.getElementById("btnCloseZkep");
+  const btnOk = document.getElementById("btnZkepOk");
+  const btnDetails = document.getElementById("btnZkepDetails");
+
+  function openZkepModal(){
+    if(!modal) return;
+    // V102: ZKEP lit l'état réel du dernier scan
+    modal.classList.add('ritual');
+    clearTimeout(window.__zkepRitualT);
+    window.__zkepRitualT = setTimeout(()=>{ try{ modal.classList.remove('ritual'); }catch(e){} }, 1600);
+
+    const now = new Date();
+    const pad = (n)=> String(n).padStart(2,"0");
+    const token = `GC-ZKEP-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    const timeStr = now.toLocaleString();
+
+    const t = document.getElementById("zkepToken");
+    const tm = document.getElementById("zkepTime");
+    const mode = document.getElementById("zkepMode");
+    const clubs = document.getElementById("zkepClubs");
+    const st = document.getElementById("zkepStatus");
+
+    if(t) t.textContent = token;
+    if(tm) tm.textContent = timeStr;
+
+    // Mode : si on a un état OS, le reprendre, sinon "Compétition"
+    if(mode){
+      if(window.state && state.intent && state.intent.mode){
+        mode.textContent = state.intent.mode;
+      } else {
+        mode.textContent = "Compétition";
+      }
+    }
+
+    // Lecture du dernier scan si disponible
+    let last = null;
+    try{
+      if(window.state && state.lastScan){
+        last = state.lastScan;
+      } else if(window.__gcLastScan){
+        last = window.__gcLastScan.r || window.__gcLastScan;
+      }
+    }catch(e){}
+
+    const clubsDetected = last && typeof last.clubsDetected==="number" ? last.clubsDetected : 0;
+    const missing = last && typeof last.missing==="number" ? last.missing : null;
+
+    if(clubs){
+      // V116 : le certificat reflète la checklist complète (21 éléments)
+      let total = 21;
+      let done = clubsDetected;
+      if (typeof computeProgress === "function") {
+        try {
+          const prog = computeProgress();
+          if (prog && typeof prog.total === "number") total = prog.total;
+          if (prog && typeof prog.done === "number") done = prog.done;
+        } catch(e){}
+      }
+      clubs.textContent = last ? `${Math.min(total, done)}/${total}` : "—";
+    }
+
+    if(st){
+      if(!last){
+        st.textContent = "Non scanné";
+      }else if(missing!==null && missing===0){
+        st.textContent = "Conforme";
+      }else{
+        st.textContent = "À vérifier";
+      }
+    }
+
+    modal.style.display="flex";
+    function closeZkepModal(){
+    if(modal) modal.style.display="none";
+  }
+
+  // Hook the quick ZKEP generate button if present
+  const btnZkepGenerate = document.getElementById("btnZkepGenerate");
+  if(btnZkepGenerate){
+    btnZkepGenerate.addEventListener("click", (e)=>{
+      e.preventDefault();
+      openZkepModal();
+      if(typeof flash==="function") flash("Certificat ZKEP généré (démo) • Horodaté • Vérifiable.");
+    }, true);
+  }
+
+  if(btnClose) btnClose.addEventListener("click", closeZkepModal);
+  if(btnOk) btnOk.addEventListener("click", closeZkepModal);
+  // V47: close when tapping outside the card
+if(modal){
+  modal.addEventListener("click", (e)=>{
+    if(e.target === modal) closeZkepModal();
+  });
+}
+
+  if(btnDetails) btnDetails.addEventListener("click", ()=>{
+    closeZkepModal();
+    if(typeof go==="function") go("zkep");
+  });
+
+})();
+</script>
+<script>
+/* V46: ZKEP demo certificate accessible from ZKEP view */
+(function(){
+  const btn = document.getElementById("btnZkepGenerateAlways");
+  const modal = document.getElementById("zkepModal");
+  function openZkepModal(){
+    if(!modal) return;
+    const now = new Date();
+    const pad = (n)=> String(n).padStart(2,"0");
+    const token = `GC-ZKEP-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    const timeStr = now.toLocaleString();
+
+    const t = document.getElementById("zkepToken");
+    const tm = document.getElementById("zkepTime");
+    const mode = document.getElementById("zkepMode");
+    const clubs = document.getElementById("zkepClubs");
+    const st = document.getElementById("zkepStatus");
+
+    if(t) t.textContent = token;
+    if(tm) tm.textContent = timeStr;
+
+    // Mode & clubs: if user is not in competition, still generate a "Matériel" certificate
+    const currentMode = (window.state && window.state.mode) ? window.state.mode : "entrainement";
+    const modeMap = {entrainement:"Entraînement", reconnaissance:"Reconnaissance", competition:"Compétition", statistique:"Statistiques"};
+    if(mode) mode.textContent = modeMap[currentMode] || "—";
+
+    const clubsDetected = (window.state && window.state.lastScan) ? (window.state.lastScan.clubsDetected||0) : 0;
+    if(clubs) clubs.textContent = clubsDetected ? `${Math.min(14, clubsDetected)}/14` : "—";
+
+    if(st){
+      if(clubsDetected>=14 && window.state && window.state.lastScan && window.state.lastScan.missingIds && window.state.lastScan.missingIds.size===0){
+        st.textContent = "Conforme";
+      } else if(window.state && window.state.lastScan){
+        st.textContent = "À vérifier";
+      } else {
+        st.textContent = "Non scanné";
+      }
+    }
+
+    modal.style.display="flex";
+    if(typeof window.flash==="function") window.flash("Certificat ZKEP généré (démo) • Horodaté • Vérifiable.");
+  }
+  if(btn){
+    btn.addEventListener("click", (e)=>{ e.preventDefault(); openZkepModal(); }, true);
+  }
+})();
+</script>
+<script>
+/* V70: Scan Shock logic — OEM Demo toggle + ZKEP link (isolated) */
+(function(){
+  // persistent-ish demo flag (in-memory; if storage blocked, still works)
+  window.__gcDemo = (window.__gcDemo !== undefined) ? window.__gcDemo : true;
+
+  const SCAN_TOTAL = 21; // V111: nombre de références checklist
+
+
+  const demoPill = document.getElementById("demoPill");
+  const demoState = document.getElementById("demoState");
+  function renderDemo(){
+    if(!demoPill || !demoState) return;
+    demoState.textContent = window.__gcDemo ? "ON" : "OFF";
+    demoPill.style.background = window.__gcDemo ? "rgba(31,218,121,.12)" : "rgba(255,255,255,.06)";
+    demoPill.style.borderColor = window.__gcDemo ? "rgba(31,218,121,.20)" : "rgba(255,255,255,.10)";
+    demoPill.style.opacity = window.__gcDemo ? "1" : ".85";
+  }
+  if(demoPill){
+    demoPill.addEventListener("click", ()=>{
+      window.__gcDemo = !window.__gcDemo;
+      renderDemo();
+    }, true);
+  }
+  renderDemo();
+
+  const root = document.getElementById("scanShock");
+  if(!root) return;
+
+  const ring = document.getElementById("ssRing");
+  const pct = document.getElementById("ssPct");
+  const sub = document.getElementById("ssSub");
+  const res = document.getElementById("ssResult");
+  const dot = document.getElementById("ssDot");
+  const vTitle = document.getElementById("ssVerdictTitle");
+  const vSub = document.getElementById("ssVerdictSub");
+  const clubs = document.getElementById("ssClubs");
+  const acc = document.getElementById("ssAcc");
+  const miss = document.getElementById("ssMissing");
+  const time = document.getElementById("ssTime");
+  const missBox = document.getElementById("ssMissingBox");
+  const list = document.getElementById("ssList");
+
+  const closeBtn = document.getElementById("ssClose");
+  const okBtn = document.getElementById("ssOk");
+  const detailsBtn = document.getElementById("ssDetails");
+  const zkepBtn = document.getElementById("ssZkep");
+
+  let running = false;
+  let pendingGoScan = false;
+  let lastScanResult = null;
+
+  function open(){ root.classList.add("active"); }
+  function close(){ root.classList.remove("active"); }
+
+  function setProgress(p, t){
+    if(ring) ring.style.setProperty("--p", p+"%");
+    if(pct) pct.textContent = p+"%";
+    if(sub) sub.textContent = t;
+  }
+
+  function simulateResult(){
+    // V116 : le scan se cale sur la checklist (21 éléments)
+    let clubTotal = SCAN_TOTAL;
+    let detected = 0;
+    let missing = 0;
+
+    // Si la checklist existe, on lit son état réel
+    if (typeof computeProgress === "function") {
+      try {
+        const prog = computeProgress();
+        if (prog && typeof prog.total === "number") clubTotal = prog.total;
+        if (prog && typeof prog.done === "number") detected = prog.done;
+        missing = Math.max(0, clubTotal - detected);
+      } catch(e) {}
+    }
+
+    // Fallback démo si on n'a pas pu lire la checklist
+    if (!detected && !missing) {
+      const r = Math.random();
+      missing = r < 0.80 ? 0 : (r < 0.95 ? 1 : 2);
+      const detectedFallback = Math.max(0, clubTotal - missing);
+      detected = detectedFallback;
+    }
+
+    const missingItems = ["Wedge 56°", "Driver", "Putter", "Gant", "Marqueur"];
+    return {
+      missing,
+      picked: missingItems.slice(0, missing),
+      clubsDetected: detected,
+      accessoriesOk: (missing === 0)
+    };
+  }
+
+
+  function updateKPIs(r, nowStr){
+    // Scan screen KPIs
+    const detCount = document.getElementById("detCount");
+    const detBar = document.getElementById("detBar");
+    const detSub = document.getElementById("detSub");
+    if(detCount) detCount.textContent = String(r.clubsDetected);
+    const clubTotal = SCAN_TOTAL;
+    if(detBar) detBar.style.width = Math.round((r.clubsDetected/Math.max(1,clubTotal))*100) + "%";
+    if(detSub) detSub.textContent = "Scanné • " + nowStr;
+
+    const scanResultLine = document.getElementById("scanResultLine");
+    const scanState = document.getElementById("scanState");
+    const scanDot = document.getElementById("scanDot");
+    if(scanResultLine) scanResultLine.textContent = r.missing===0 ? "Sac conforme" : (r.clubsDetected + " clubs • " + r.missing + " manquant(s)");
+    if(scanState) scanState.textContent = r.missing===0 ? "Prêt à jouer" : "À vérifier";
+    if(scanDot){
+      scanDot.style.background = r.missing===0 ? "#1fda79" : "#ff3b30";
+      scanDot.style.boxShadow = r.missing===0 ? "0 0 0 6px rgba(31,218,121,.14)" : "0 0 0 6px rgba(255,59,48,.14)";
+    }
+
+    // Dashboard OS line if present
+    const osScanLine = document.getElementById("osScanLine");
+    const osScanSub = document.getElementById("osScanSub");
+    if(osScanLine) osScanLine.textContent = r.missing===0 ? "Sac scanné • conforme" : "Sac scanné • à vérifier";
+    if(osScanSub) osScanSub.textContent = r.missing===0 ? "Sac conforme • aucun manquant" : (r.missing + " manquant(s) • action");
+
+    // Hero pill (tag "Non scanné" -> "Scanné")
+    const heroPillTxtEl = document.getElementById("heroPillTxt");
+    if(heroPillTxtEl) heroPillTxtEl.textContent = "Scanné";
+
+    // V102: synchro état global pour que l'app sache qu'un scan a été fait
+    try{
+      if(window.state){
+        // Construire des sets cohérents avec le moteur existant
+        let clubIds = [];
+        if(typeof BASE_LIBRARY !== "undefined"){
+          clubIds = BASE_LIBRARY.filter(x=>x.type==="club").map(x=>x.id);
+        }
+        const detectedCount = Math.max(0, Math.min(r.clubsDetected || 0, clubIds.length));
+        const detectedIds = new Set(clubIds.slice(0, detectedCount));
+        const missingIds = new Set(clubIds.slice(detectedCount));
+
+        window.state.lastScan = {
+          ts: Date.now(),
+          clubsDetected: r.clubsDetected || 0,
+          missing: r.missing || 0,
+          accessoriesOk: !!r.accessoriesOk,
+          detectedIds,
+          missingIds
+        };
+        // Permet à l'OS / Dashboard de se mettre à jour (hero, OS, ZKEP…)
+        if(typeof refreshUI === "function") refreshUI();
+        // Pousser aussi les infos vers la Checklist (corrélation Scan ↔ Checklist)
+        if(typeof window.syncChecklistFromScan === "function") window.syncChecklistFromScan();
+      }
+    }catch(e){}
+
+    // Enable ZKEP generate CTA on scan screen if present
+    const btnZkepGenerate = document.getElementById("btnZkepGenerate");
+    if(btnZkepGenerate) btnZkepGenerate.disabled = (r.missing!==0);
+  }function showResult(r, now){
+    const nowStr = now.toLocaleString();
+    lastScanResult = { r, nowStr };
+
+    time.textContent = nowStr;
+    const clubTotal = SCAN_TOTAL;
+    clubs.textContent = r.clubsDetected + "/" + clubTotal;
+    acc.textContent = r.accessoriesOk ? "OK" : "À vérifier";
+    miss.textContent = String(r.missing);
+
+    // reset
+    dot.style.background = "#1fda79";
+    dot.style.boxShadow = "0 0 0 6px rgba(31,218,121,.14)";
+    missBox.style.display = "none";
+    if(list) list.innerHTML = "";
+
+    if(r.missing===0){
+      vTitle.textContent = "Conforme";
+      vSub.textContent = "Clubs présents";
+    }else{
+      dot.style.background="#ff3b30";
+      dot.style.boxShadow="0 0 0 6px rgba(255,59,48,.14)";
+      vTitle.textContent = "Manquant";
+      vSub.textContent = r.missing + " élément(s) manquant(s) • action requise";
+      missBox.style.display="block";
+      r.picked.forEach(it=>{
+        const li=document.createElement("li");
+        li.textContent=it;
+        list.appendChild(li);
+      });
+    }
+
+    // ZKEP button becomes meaningful
+    if(zkepBtn){
+      zkepBtn.textContent = (r.missing===0) ? "Certificat ZKEP" : "ZKEP (bloqué)";
+      zkepBtn.style.opacity = (r.missing===0) ? "1" : ".55";
+    }
+
+    res.style.display="block";
+    updateKPIs(r, nowStr);
+  }
+
+  function start(){
+    if(running) return;
+    running = true;
+
+    res.style.display="none";
+    missBox.style.display="none";
+    if(list) list.innerHTML = "";
+    setProgress(0, "Connexion au sac…");
+    open();
+
+    const steps = [
+      [10,"Connexion au sac…"],
+      [26,"Lecture des capteurs…"],
+      [50,"Détection des clubs…"],
+      [72,"Vérification des accessoires…"],
+      [90,"Conformité & preuve…"],
+      [100,"Résultat prêt"]
+    ];
+    let i=0;
+    (function tick(){
+      const s = steps[i++];
+      if(!s) return;
+      setProgress(s[0], s[1]);
+      if(i < steps.length){
+        setTimeout(tick, 560);
+        return;
+      }
+      setTimeout(()=>{
+        const r = simulateResult();
+        const now = new Date();
+        showResult(r, now);
+        running = false;
+      }, 520);
+    })();
+  }
+
+  function closeAndMaybeGo(){
+    close();
+    if(pendingGoScan){
+      pendingGoScan = false;
+      try{ if(typeof window.go==="function") window.go("scan"); }catch(e){}
+    }
+  }
+
+  if(closeBtn) closeBtn.addEventListener("click", closeAndMaybeGo, true);
+  if(okBtn) okBtn.addEventListener("click", closeAndMaybeGo, true);
+  root.addEventListener("click", (e)=>{ if(e.target===root) closeAndMaybeGo(); }, true);
+
+  if(detailsBtn){
+    detailsBtn.addEventListener("click", ()=>{
+      pendingGoScan = true;
+      closeAndMaybeGo();
+    }, true);
+  }
+
+  if(zkepBtn){
+    zkepBtn.addEventListener("click", ()=>{
+      if(!lastScanResult || lastScanResult.r.missing!==0) return;
+      // close overlay and open ZKEP ritual if available
+      close();
+      try{
+        if(typeof window.openZkepRitual==="function") window.openZkepRitual();
+      }catch(e){}
+    }, true);
+  }
+
+  function isTrigger(btn){
+    if(!btn) return false;
+    return (btn.id === "btnDashScan" || btn.id === "btnStartScan");
+  }
+
+  document.addEventListener("click", (e)=>{
+    const btn = e.target && e.target.closest ? e.target.closest("button") : null;
+    if(!isTrigger(btn)) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+    pendingGoScan = true;
+    start();
+  }, true);
+
+})();
+</script>
+<script>
+/* V71: Hard remove ANY 'Mode actuel' remnants (safety net) */
+(function(){
+  try{
+    document.querySelectorAll('*').forEach(el=>{
+      if(el.children && el.children.length===0){
+        const t=(el.textContent||"").toLowerCase();
+        if(t.includes("mode actuel") || t.trim()==="changer"){
+          const card = el.closest(".card") || el.closest("section") || el.closest("div");
+          if(card) card.style.display="none";
+        }
+      }
+    });
+  }catch(e){}
+})();
+</script>
+<script>
+/* V96: Force start on Dashboard + deterministic ZKEP open/close */
+(function(){
+  // Always start on dashboard (ignore any persisted view)
+  try{
+    if(typeof window.go === "function"){
+      window.go("dashboard");
+      window.currentView = "dashboard";
+    }
+  }catch(e){}
+
+  const modal = document.getElementById("zkepModal");
+  if(!modal) return;
+
+  // Ensure hidden at load
+  modal.classList.remove("show");
+  modal.style.display = "none";
+
+  function openZ(){
+    try{
+      modal.style.display = "flex";
+      modal.classList.add("show");
+    }catch(e){}
+  }
+  function closeZ(){
+    try{
+      modal.classList.remove("show");
+      modal.style.display = "none";
+      if(typeof window.go === "function") window.go("dashboard");
+    }catch(e){}
+  }
+
+  // Bind open buttons (any element with data-open="zkep" or id btnOpenZkep)
+  document.addEventListener("click", (e)=>{
+    const t = e.target && e.target.closest ? e.target.closest('[data-open="zkep"],#btnOpenZkep,#openZkepRitual,.openZkep') : null;
+    if(t){
+      e.preventDefault(); e.stopPropagation();
+      openZ();
+    }
+  }, true);
+
+  // Close on X/OK buttons if present
+  ["btnCloseZkep","btnZkepOk","btnZkepOK","btnZkepClose"].forEach(id=>{
+    const b = document.getElementById(id);
+    if(b) b.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); closeZ(); }, true);
+  });
+
+  // Close on backdrop click
+  modal.addEventListener("click", (e)=>{
+    if(e.target === modal){
+      e.preventDefault(); e.stopPropagation();
+      closeZ();
+    }
+  }, true);
+
+  // Esc close
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && modal.style.display !== "none"){
+      closeZ();
+    }
+  }, true);
+
+  // Expose functions for existing code to call safely
+  window.openZkepRitual = openZ;
+  window.closeZkepRitual = closeZ;
+})();
+</script>
+<script>
+/* V97: Hard delegation for Checklist chips (touchstart + pointerdown + click) */
+(function(){
+  function handle(e){
+    const t = e.target && e.target.closest ? e.target.closest('#v-checklist .chip[data-act][data-id]') : null;
+    if(!t) return;
+    // Ensure JS actually runs (avoid Quick Look confusion)
+    try{
+      const id = t.dataset.id;
+      const act = t.dataset.act;
+      if(typeof toggleItem === "function"){
+        toggleItem(id, act);
+        // Prevent double-trigger (touchstart + click)
+        if(e.type !== "click"){
+          e.preventDefault();
+        }
+      }
+    }catch(_){}
+  }
+  ["pointerdown","touchstart","click"].forEach(evt=>{
+    document.addEventListener(evt, handle, true);
+  });
+})();
+</script>
+<script>
+/* V98: Réduction des doublons de Scan (UX clair) */
+(function(){
+  // 1) Enlever le bouton "Scanner" dans le certificat ZKEP (on garde juste Retour)
+  try{
+    var zkScanBtn = document.getElementById("btnZkToScan");
+    if(zkScanBtn){
+      zkScanBtn.style.display = "none";
+    }
+  }catch(e){}
+
+  // 2) Enlever la tuile "Scan" dans Écosystème GolfCheck (on garde Alarme / ZKEP / Checklist IA / Secure / Stats)
+  try{
+    var ecoTitles = document.querySelectorAll(".homeCardTitle");
+    ecoTitles.forEach(function(t){
+      if((t.textContent || "").toLowerCase().includes("écosystème golfcheck")){
+        var grid = t.nextElementSibling;
+        if(grid && grid.classList.contains("grid3")){
+          var scanTile = grid.querySelector('[data-go="scan"]');
+          if(scanTile){
+            scanTile.style.display = "none";
+          }
+        }
+      }
+    });
+  }catch(e){}
+})();
+</script>
+</body>
+
+
+<script>
+// V129 : logique simple de carte de score (total + démo)
+(function(){
+  const rows = Array.from(document.querySelectorAll('#scoreRows input[data-hole]'));
+  const scoreTotalEl = document.getElementById('scoreTotal');
+  const msgEl = document.getElementById('scoreMsg');
+  const btnAuto = document.getElementById('btnScoreAuto');
+  const btnSave = document.getElementById('btnScoreSave');
+
+  function recomputeScore(){
+    if(!scoreTotalEl) return;
+    let sum = 0;
+    let filled = 0;
+    for(const inp of rows){
+      const v = parseInt(inp.value, 10);
+      if(!isNaN(v)){
+        sum += v;
+        filled++;
+      }
+    }
+    scoreTotalEl.textContent = filled > 0 ? String(sum) : "—";
+  }
+
+  // Auto-remplissage démo : Par + 1 pour chaque trou
+  const demoPars = [4,4,3,4,5,4,3,4,5,4,3,5,4,4,3,4,5,4];
+
+  if(btnAuto){
+    btnAuto.addEventListener('click', function(){
+      rows.forEach((inp, idx)=>{
+        const par = demoPars[idx];
+        if(typeof par === "number"){
+          inp.value = String(par + 1);
+        }
+      });
+      recomputeScore();
+      if(msgEl) msgEl.textContent = "Carte remplie automatiquement (démo).";
+    });
+  }
+
+  if(btnSave){
+    btnSave.addEventListener('click', function(){
+      recomputeScore();
+      if(!msgEl || !scoreTotalEl) return;
+      const total = scoreTotalEl.textContent || "—";
+      if(total === "—"){
+        msgEl.textContent = "Aucun score saisi pour l'instant.";
+      }else{
+        msgEl.textContent = "Score enregistré (démo) : " + total + " coups.";
+      }
+      // Option : on pourrait aussi sauvegarder dans localStorage ici.
+    });
+  }
+
+  // Mise à jour du total à chaque saisie
+  rows.forEach(inp=>{
+    inp.addEventListener('input', recomputeScore);
+  });
+})();
+</script>
 
 <script>
 (function(){
@@ -1987,7 +3394,242 @@ renderDispersion();
   heartbeat();
   setInterval(heartbeat, 5000);
 })();
+
+  // --- Protection active (V28) ---
+  const PROTECT_KEY = "gc_protect_v1";
+  function getProtect(){
+    try{
+      const raw = localStorage.getItem(PROTECT_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return { active:false, mode:"sonore", alert:false, lastEvent:null };
+  }
+  function setProtect(p){
+    try{ localStorage.setItem(PROTECT_KEY, JSON.stringify(p)); }catch(e){}
+    updateProtectUI();
+  }
+
+  function updateProtectUI(){
+    const p = getProtect();
+
+    // Dashboard line
+    const row = document.getElementById("protectStatusRow");
+    const st = document.getElementById("protectStatusText");
+    const sd = document.getElementById("protectDot");
+    const modeLabel = (p.mode === "sonore") ? "Sonore" : "Silencieux";
+
+    // Règle UX : la ligne n'apparaît sur le Dashboard que si la protection est activée
+    if(row){
+      row.style.display = p.active ? "" : "none";
+    }
+    if(st){
+      st.textContent = p.active ? ("Protection active • " + modeLabel) : "";
+    }
+    if(sd){
+      // actif = rouge, inactif = vert (même si la ligne est masquée quand inactif)
+      sd.className = "mini " + (p.active ? "dot-red" : "dot-green");
+    }
+
+    // Secure page elements
+    const pill = document.getElementById("protectPill");
+    if(pill){
+      pill.className = "state " + (p.active ? "bad" : "ok");
+      const label = pill.querySelector("span:last-child");
+      if(label) label.textContent = p.active ? "Protection active" : "Protection inactive";
+    }
+
+    const line = document.getElementById("protectLine");
+    if(line){
+      line.textContent = p.active ? (p.alert ? "Alerte en cours" : "Surveillance active") : "Protection inactive";
+    }
+
+    const badge = document.getElementById("protectState");
+    if(badge){
+      badge.className = "state " + (p.active ? "bad" : "ok");
+      badge.innerHTML = '<span class="dot"></span><span>' + (p.active ? "ON" : "OFF") + "</span>";
+    }
+
+    const btn = document.getElementById("btnProtectToggle");
+    if(btn){
+      if(p.active){
+        btn.textContent = "Désactiver";
+        btn.className = "pillBtn";
+      }else{
+        btn.textContent = "Activer";
+        btn.className = "pillBtn";
+      }
+    }
+
+    const bSound = document.getElementById("btnModeSound");
+    const bSilent = document.getElementById("btnModeSilent");
+    if(bSound && bSilent){
+      if(p.mode === "sonore"){
+        bSound.classList.add("active");
+        bSilent.classList.remove("active");
+      }else{
+        bSilent.classList.add("active");
+        bSound.classList.remove("active");
+      }
+    }
+  }
+
+  function playProtectSignal(mode){
+    try{
+      if(mode === "silencieux" && navigator.vibrate) navigator.vibrate([80,60,120]);
+    }catch(e){}
+    if(mode !== "sonore") return;
+    try{
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return;
+      const ctx = new AC();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "sine";
+      o.frequency.value = 880;
+      g.gain.value = 0.001;
+      o.connect(g); g.connect(ctx.destination);
+      o.start();
+      // quick ramp
+      g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+      o.stop(ctx.currentTime + 0.20);
+      setTimeout(()=>{ try{ ctx.close(); }catch(e){} }, 350);
+    }catch(e){}
+  }
+
+  function triggerProtectAlert(){
+    const p = getProtect();
+    if(!p.active){
+      flash("Protection inactive");
+      return;
+    }
+    p.alert = true;
+    p.lastEvent = { type:"club_out", item:"Driver", ts: Date.now() };
+    setProtect(p);
+
+    playProtectSignal(p.mode);
+    try{ pushEvent("⚠️ Alerte : club retiré (Driver)", "Secure"); }catch(e){}
+    flash("Alerte : club retiré");
+
+    // Auto-reset demo alert after a moment
+    setTimeout(()=>{
+      const q = getProtect();
+      if(q.alert){
+        q.alert = false;
+        setProtect(q);
+      }
+    }, 2500);
+  }
+
+  function clearProtectAlert(){
+    const p = getProtect();
+    p.alert = false;
+    setProtect(p);
+  }
+
+  // Wire buttons (exists only if Secure view present)
+  document.addEventListener("click", (e)=>{
+    const id = e.target && e.target.id;
+    if(id==="btnProtectToggle"){
+      const p = getProtect();
+      const wasActive = p.active;
+      p.active = !p.active;
+      if(!p.active) p.alert = false;
+      setProtect(p);
+      // feedback sonore quand activation en mode Sonore
+      if(!wasActive && p.active){ playProtectSignal(p.mode); }
+    }
+    if(id==="btnModeSound"){
+      const p = getProtect();
+      p.mode = "sonore";
+      setProtect(p);
+      if(p.active){ playProtectSignal("sonore"); }
+    }
+    if(id==="btnModeSilent"){
+      const p = getProtect();
+      p.mode = "silencieux";
+      setProtect(p);
+    }
+    // Allow clearing alert by tapping the dashboard protection text
+    if(id==="protectStatusText"){
+      clearProtectAlert();
+      flash("Alerte acquittée");
+    }
+  }, true);
+
+  // init
+  (function(){
+    const p = getProtect();
+    // default to active + sonore as requested
+    if(typeof p.active !== "boolean") p.active = true;
+    if(!p.mode) p.mode = "sonore";
+    setProtect(p);
+  })();
+
+
+  // --- V34: protection UI polish ---
+  function gcBeep(){
+    try{
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type='sine';
+      o.frequency.value=880;
+      g.gain.value=0.0001;
+      o.connect(g); g.connect(ctx.destination);
+      o.start();
+      const now=ctx.currentTime;
+      g.gain.exponentialRampToValueAtTime(0.35, now+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, now+0.20);
+      o.stop(now+0.22);
+      setTimeout(()=>ctx.close&&ctx.close(), 300);
+    }catch(e){}
+  }
+
+  function renderProtectionBanner(){
+    const on = (state && state.protectionOn) ? true : false;
+    document.body.classList.toggle('protect-on', on);
+    const mode = (state && state.protectionMode) ? state.protectionMode : 'sonore';
+    const lbl = document.getElementById('protectModeLabel');
+    if(lbl) lbl.textContent = (mode==='silencieux') ? 'Silencieux' : 'Sonore';
+
+    const bSound=document.getElementById('btnModeSound');
+    const bSilent=document.getElementById('btnModeSilent');
+    if(bSound && bSilent){
+      bSound.classList.toggle('active', mode!=='silencieux');
+      bSilent.classList.toggle('active', mode==='silencieux');
+    }
+
+    const tgl=document.getElementById('btnProtectToggle');
+    if(tgl){
+      tgl.textContent = on ? 'Désactiver' : 'Activer';
+      tgl.classList.toggle('primary', on);
+    }
+  }
+
+  // Hook into existing render/state updates if present
+  const _gcOldRender = window.renderAll || null;
+  window.renderAll = function(){
+    try{ _gcOldRender && _gcOldRender(); }catch(e){}
+    try{ renderProtectionBanner(); }catch(e){}
+  };
+
+  // Ensure immediate render on load
+  setTimeout(()=>{ try{ window.renderAll && window.renderAll(); }catch(e){} }, 50);
+
+  // Patch toggle to beep on activation in sonore mode
+  const _oldToggle = window.toggleProtection || null;
+  window.toggleProtection = function(){
+    const wasOn = state && state.protectionOn;
+    try{ _oldToggle && _oldToggle(); }catch(e){}
+    const nowOn = state && state.protectionOn;
+    if(!wasOn && nowOn){
+      const mode = state && state.protectionMode;
+      if(mode!=='silencieux') gcBeep();
+    }
+    try{ renderProtectionBanner(); }catch(e){}
+  };
+
 </script>
 
-
-</body></html>
+</html>
